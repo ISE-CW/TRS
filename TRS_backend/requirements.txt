@@ -1,0 +1,12 @@
+cython
+opencv-python=3.4.2.16
+opencv-contrib-python=3.4.2.16
+easydict
+Pillow
+matplotlib
+scipy
+pytesseract
+baidu-aip
+jieba
+django
+django-cors-headers
