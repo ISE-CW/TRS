@@ -33,8 +33,49 @@ def get_report_feature(reports_path):
 
 
 report_features = get_report_feature('./sample.csv')
+file=open("workid_feature.txt","w")
+bug_id=0
 for feature in report_features:
-    print(
-        'procedure_vector:{},widget_vector:{},problem_vector:{},is_widget_available:{},image_vector:{},andrimg_path:{}'.format(
-            feature['procedure_vector'], feature['widget_vector'], feature['problem_vector'],
-            feature['is_widget_available'], feature['image_vector'], feature['andrimg_path']))
+    bug_id=bug_id+1
+    file.write("bug_id: "+str(bug_id)+"\n")
+    file.write("is_widget_available: "+str(feature['is_widget_available'])+"\n")
+    file.write("andrimg_path: "+str(feature['andrimg_path'])+"\n")
+
+    procedure=feature['procedure_vector']
+    file.write("procedure_vector: "+str(len(procedure))+"\n")
+    for item in procedure:
+        file.write("[")
+        for i in range(0,len(item)):
+            file.write(str(item[i])+",")
+        file.write("]\n")
+
+    widget=feature['widget_vector']
+    file.write("widget_vector: "+str(len(widget))+"\n")
+    file.write("[")
+    for i in range(0, len(widget)):
+        file.write(str(widget[i]) + ",")
+    file.write("]\n")
+
+    problem=feature['problem_vector']
+    file.write("problem_vector: "+str(len(problem))+"\n")
+    for item in problem:
+        file.write("[")
+        for i in range(0, len(item)):
+            file.write(str(item[i]) + ",")
+        file.write("]\n")
+
+    image=feature['image_vector']
+    file.write("image_vector: " + str(len(image))+"\n")
+    for item in image:
+        file.write("[")
+        for i in range(0, len(item)):
+            file.write(str(item[i]) + ",")
+        file.write("]\n")
+file.close()
+
+# report_features = get_report_feature('./sample.csv')
+# for feature in report_features:
+#     print(
+#         'procedure_vector:{},widget_vector:{},problem_vector:{},is_widget_available:{},image_vector:{},andrimg_path:{}'.format(
+#             feature['procedure_vector'], feature['widget_vector'], feature['problem_vector'],
+#             feature['is_widget_available'], feature['image_vector'], feature['andrimg_path']))
