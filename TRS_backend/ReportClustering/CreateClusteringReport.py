@@ -1,4 +1,4 @@
-from TRS_backend.ReportClustering.InputFormation.Schedule import doClustering
+from TRS_backend.ReportClustering.FunctionClass.Schedule import doClustering
 from TRS_backend.ReportClustering.Util.Enumeration import *
 # work_id表示该次聚类操作的id号
 # choices包括了用户选择的所有聚类相关内容 是一个多层级的数组 每个数组项choice包含了如下内容

@@ -12,3 +12,8 @@ class ClusteringAlgorithm(Enum):
     BIRCH=3
     DBSCAN=4
 
+class FileFormat(Enum):
+    MARKDOWN=1
+    PDF=2
+    WORD=3
+

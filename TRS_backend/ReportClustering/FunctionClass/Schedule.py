@@ -1,7 +1,7 @@
-from TRS_backend.ReportClustering.InputFormation.SolveFile import getInitClusteringData
-from TRS_backend.ReportClustering.InputFormation.SolveFile import produceReport
+from TRS_backend.ReportClustering.FunctionClass.SolveFile import getInitClusteringData
+from TRS_backend.ReportClustering.FunctionClass.SolveFile import produceReport
 from TRS_backend.ReportClustering.Util.Enumeration import *
-from TRS_backend.ReportClustering.InputFormation.ReportTree import *
+from TRS_backend.ReportClustering.FunctionClass.ReportTree import *
 from TRS_backend.ReportClustering.Algorithm.Partition.KMeansAlgorithm import *
 import numpy as np
 
