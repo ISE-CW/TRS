@@ -167,16 +167,18 @@ def parse_args():
 
     return args
 
-def sentence_similarity(model,s1,s2):
+
+def sentence_similarity(model, s1, s2):
     size = model.layer1_size
+
     def sentence_vector(s):
-        words=[]
+        words = []
         try:
-            words=[x for x in jieba.cut(s, cut_all=True) if x != '']
+            words = [x for x in jieba.cut(s, cut_all=True) if x != '']
         except:
             return np.zeros(size)
         v = np.zeros(size)
-        length=len(words)
+        length = len(words)
         for word in words:
             try:
                 v += model[word]
@@ -203,11 +205,11 @@ def sentence_similarity(model,s1,s2):
             return part_up / part_down
 
     v1, v2 = sentence_vector(s1), sentence_vector(s2)
-    dis=cos_dist(v1,v2)
+    dis = cos_dist(v1, v2)
     return dis
 
-def widget_recognition (img_name_list,widget_information_list):
 
+def widget_recognition(img_name_list, widget_information_list):
     curpath = os.path.dirname(os.path.realpath(__file__))
 
     args = parse_args()
@@ -244,7 +246,8 @@ def widget_recognition (img_name_list,widget_information_list):
     print('Loaded network {:s}'.format(tfmodel))
 
     father_dir = os.path.dirname(curpath)
-    word2vec_model = gensim.models.Word2Vec.load(father_dir + '\\word2vec_model\\bugdata_format_model_100')  # 调用先前的word2vec模型
+    word2vec_model = gensim.models.Word2Vec.load(
+        father_dir + '\\word2vec_model\\bugdata_format_model_100')  # 调用先前的word2vec模型
 
     filepath = curpath + "\\data\\VOCdevkit2007\\VOC2007\\coordinate\\"
 
@@ -263,6 +266,7 @@ def widget_recognition (img_name_list,widget_information_list):
         fig, ax = plt.subplots(figsize=(11, 20))
         is_widget_available = False
         vaild_widget_path = ''
+        other_widget = []
         for line in lines:
             filename = line.strip('\n').split(":")[0]
             bbox = line.strip('\n').split(":")[1].split(" ")
@@ -275,11 +279,30 @@ def widget_recognition (img_name_list,widget_information_list):
             print('file_path : {}'.format(widget_file_path))
             ocr_res = get_baidu_ocr_res(widget_file_path)
             print('ocr result: {}'.format(' '.join(ocr_res)))
-            for ocr_txt in ocr_res:
-                similarity = sentence_similarity(word2vec_model, ocr_txt, widget_information)
-                if (similarity and similarity >= 0.90) or (
-                        CLASS_NAME == 'EditText' and (widget_information == '搜索栏' or widget_information == '输入框')):
-                    if CLASS_NAME != "None":
+            if CLASS_NAME != "None":
+                if is_widget_available:
+                    ax.imshow(im, aspect='equal')
+                    ax.add_patch(
+                        plt.Rectangle((float(bbox[0]), float(bbox[1])),
+                                      float(bbox[2]) - float(bbox[0]),
+                                      float(bbox[3]) - float(bbox[1]), fill=False,
+                                      edgecolor='blue', linewidth=2)
+                    )
+                    ax.text(float(bbox[0]), float(bbox[1]) - 2,
+                            '{:s}'.format(str(number) + ':' + "None"),
+                            bbox=dict(facecolor='blue', alpha=0.5),
+                            fontsize=8, color='white')
+                    other_widget.append(widget_file_path)
+                else:
+                    match_res = False
+                    for ocr_txt in ocr_res:
+                        similarity = sentence_similarity(word2vec_model, ocr_txt, widget_information)
+                        if (similarity and similarity >= 0.98) or (
+                                CLASS_NAME == 'EditText' and (
+                                widget_information == '搜索栏' or widget_information == '输入框')):
+                            match_res = True
+                            break
+                    if match_res:
                         ax.imshow(im, aspect='equal')
                         ax.add_patch(
                             plt.Rectangle((float(bbox[0]), float(bbox[1])),
@@ -291,6 +314,8 @@ def widget_recognition (img_name_list,widget_information_list):
                                 '{:s}'.format(CLASS_NAME),
                                 bbox=dict(facecolor='red', alpha=0.5),
                                 fontsize=8, color='white')
+                        is_widget_available = True
+                        vaild_widget_path = widget_file_path
                     else:
                         ax.imshow(im, aspect='equal')
                         ax.add_patch(
@@ -303,12 +328,7 @@ def widget_recognition (img_name_list,widget_information_list):
                                 '{:s}'.format(str(number) + ':' + "None"),
                                 bbox=dict(facecolor='blue', alpha=0.5),
                                 fontsize=8, color='white')
-                    is_widget_available = True
-                    vaild_widget_path = widget_file_path
-                    break
-            if is_widget_available:
-                break
-
+                        other_widget.append(widget_file_path)
         if is_widget_available:
             plt.axis('off')
             plt.draw()
@@ -329,10 +349,11 @@ def widget_recognition (img_name_list,widget_information_list):
         for i in os.listdir(path):
             path_file = curpath + '\\data\\VOCdevkit2007\\VOC2007\\JPEGImages\\' + img_name.split('.')[0] + '\\' + i
             if os.path.isfile(path_file):
-                if path_file != vaild_widget_path:
+                if path_file != vaild_widget_path and (path_file not in other_widget):
                     os.remove(path_file)
         open(curpath + '\\data\\VOCdevkit2007\\VOC2007\\ImageSets\\Main\\test.txt', 'w').close()
-        image_result = {'is_widget_available':is_widget_available,'valid_widget_path':vaild_widget_path,'andrimg_path':andrimg_path}
+        image_result = {'is_widget_available': is_widget_available, 'valid_widget_path': vaild_widget_path,
+                        'other_widget': other_widget, 'andrimg_path': andrimg_path}
         result_list.append(image_result)
 
     return result_list

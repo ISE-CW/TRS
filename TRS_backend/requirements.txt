@@ -10,3 +10,4 @@ baidu-aip
 jieba
 django
 django-cors-headers
+mysqlclient
