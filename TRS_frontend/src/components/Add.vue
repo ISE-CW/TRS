@@ -40,7 +40,7 @@
         let data = new URLSearchParams()
         data.append('parm','前端传入数据示例')
         this.$axios
-          .post('/test/', data)
+          .post('/server/test/', data)
           .then(function (response) {
             console.log(response)
             alert(response.data.msg)
