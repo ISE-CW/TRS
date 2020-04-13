@@ -57,8 +57,8 @@ class FeatureResult(models.Model):
     bug_description = models.CharField(max_length=200)
     problem_widget = models.CharField(max_length=20)
     is_match = models.BooleanField(default=True)
-    widget_path = models.CharField(max_length=100)
-    pic_path = models.CharField(max_length=100)
+    widget_path = models.CharField(max_length=200)
+    pic_path = models.CharField(max_length=200)
 
     class Meta:
         db_table = 'feature_result'
@@ -66,7 +66,7 @@ class FeatureResult(models.Model):
 
 class OtherWidget(models.Model):
     frid = models.IntegerField(null=False)
-    path = models.CharField(max_length=100)
+    path = models.CharField(max_length=200)
 
     class Meta:
         db_table = 'other_widget'
