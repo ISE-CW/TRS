@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', TemplateView.as_view(template_name="index.html")),
     # re_path(r'.*', TemplateView.as_view(template_name='index.html'))
-    path('test/', views.test, name='test')
+    path('test/', views.test, name='test'),
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
 ]
