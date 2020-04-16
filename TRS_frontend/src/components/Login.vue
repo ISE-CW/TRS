@@ -1,5 +1,6 @@
 <template>
-  <div v-bind:style="{width:100+'%',height:window_height+'px'}" style="background:none">
+  <div v-bind:style="{width:100+'%',height:window_height+'px'}" style="background: #f4f4f4">
+    <Top ref="top"></Top>
     <div id="back" v-bind:style="{width: 500+'px', height:350+'px', marginTop:(window_height-350)/2+'px'}" style="margin-left: auto;margin-right: auto">
       <div id="close" style="float: right;text-align: center" @click="handleClose('close')">
         ×
@@ -20,9 +21,9 @@
           <Input type="password" v-model="formInline.password" placeholder="请输入您的密码"></Input>
         </FormItem>
         <FormItem style="text-align: right">
-          <a class="link" @click="handleClose('forget')">忘记密码</a>
+          <a class="link" href="">忘记密码</a>
           <Divider type="vertical"></Divider>
-          <a class="link" @click="handleClose('register')">注册用户</a>
+          <a class="link" href="/#/register">注册用户</a>
           <Button type="error" @click="handleSubmit('formInline')" style="margin-left: 15px">登 录</Button>
         </FormItem>
       </Form>
@@ -31,8 +32,10 @@
 </template>
 
 <script>
+  import Top from './Top'
   export default {
     name: "Login",
+    components: {Top},
     data () {
       return {
         formInline: {
@@ -55,23 +58,23 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            let data = new URLSearchParams()
-            data.append('name', this.formInline.user)
-            data.append('password', this.formInline.password)
+            let data = new URLSearchParams();
+            data.append('name', this.formInline.user);
+            data.append('password', this.formInline.password);
             this.$axios
-              .post('/login/', data)
-              .then(function (response) {
-                if (response.data.status === 1) {
+              .post('/server/login/', data)
+              .then(re=>{
+                if (re.data.status === 1) {
+                  sessionStorage.setItem("username",this.formInline.user);
+                  sessionStorage.setItem("user_id",re.data.msg);
                   this.$Message.success({
                     content:'登录成功',
-                    duration:1.5,
                     onClose:function() {
-                      sessionStorage.setItem("username",this.formInline.user)
-                      // window.location.href = "/articles";
+                      window.location.href = "/#/home";
                     }
                   });
                 }else{
-                  this.$Message.error(response.data.msg)
+                  this.$Message.error(re.data.msg);
                   this.formInline.password=''
                 }
               })

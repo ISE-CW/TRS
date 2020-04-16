@@ -52,7 +52,7 @@ def insert_report_set(uid, report_num):
 
 # 查询ReportSet数据
 def find_report_set(uid):
-    res = ReportSet.objects.filter(uid=uid)
+    res = ReportSet.objects.filter(uid=uid).order_by('-upload_time')
     r_set = []
     for report_set in res:
         result = {'sid': report_set.sid, 'uid': report_set.uid, 'report_num': report_set.report_num,
@@ -61,6 +61,16 @@ def find_report_set(uid):
                                                             report_set.upload_time.minute, report_set.upload_time.second)}
         r_set.append(result)
     return r_set
+
+
+# 获取指定id的ReportSet数据
+def get_report_set(sid):
+    res = ReportSet.objects.get(sid=sid)
+    result = {'sid': res.sid, 'uid': res.uid, 'report_num': res.report_num,
+              'upload_time': '{}.{}.{} {}:{}:{}'.format(res.upload_time.year, res.upload_time.month,
+                                                        res.upload_time.day, res.upload_time.hour+8,
+                                                        res.upload_time.minute, res.upload_time.second)}
+    return result
 
 
 # 清空ReportSet数据

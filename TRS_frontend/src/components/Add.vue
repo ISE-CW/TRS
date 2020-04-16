@@ -14,6 +14,7 @@
         <label for="content">Content:</label>
         <textarea class="form-control" id="content" rows="10" placeholder="Content" v-model="content"></textarea>
         <input type="button" class="btn btn-secondary" value="Submit" @click="post">
+        <Button type="primary" @click="test">测试</Button>
       </form>
 
     </div>
@@ -41,16 +42,19 @@
         data.append('parm','前端传入数据示例')
         this.$axios
           .post('/server/test/', data)
-          .then(function (response) {
-            console.log(response)
-            alert(response.data.msg)
-            if (response.data.status === 0) {
+          .then(re=>{
+            console.log(re);
+            this.$Message.success(re.data.msg);
+            if (re.data.status === 0) {
               location.href = '/'
             }
           })
           .catch(function (error) {
             console.log(error)
           })
+      },
+      test(){
+        this.$Message.info('测试')
       }
     }
   }

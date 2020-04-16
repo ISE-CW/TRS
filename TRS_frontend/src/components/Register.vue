@@ -1,5 +1,6 @@
 <template>
-  <div v-bind:style="{width:100+'%',height:window_height+'px'}" style="background:none">
+  <div v-bind:style="{width:100+'%',height:window_height+'px'}" style="background: #f4f4f4">
+    <Top ref="top"></Top>
     <div id="back" v-bind:style="{width: 500+'px', height:350+'px', marginTop:(window_height-350)/2+'px'}" style="margin-left: auto;margin-right: auto">
       <div>
         <div class="close" style="float: right;text-align: center" @click="handleClose">
@@ -33,9 +34,10 @@
 </template>
 
 <script>
-  Vue.use(iview);
+  import Top from "./Top";
   export default {
     name: "Register",
+    components: {Top},
     data () {
       const validatePass = (rule, value, callback) => {
         if (value === '') {
@@ -85,32 +87,31 @@
       handleSubmit(name){
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$Message.success('测试')
-            // let data = new URLSearchParams()
-            // data.append('name', this.formCustom.user)
-            // data.append('password', this.formCustom.passwd)
-            // this.$axios
-            //   .post('/register/', data)
-            //   .then(function (response) {
-            //     console.log(response.data);
-            //     if (response.data.status === 1) {
-            //       this.$Message.success({
-            //         content:'注册成功',
-            //         duration:1.5,
-            //         onClose:function() {
-            //           window.location.href = "/login";
-            //         }
-            //       });
-            //     }else{
-            //       this.$Message.error(response.data.msg);
-            //       this.formCustom.user = '';
-            //       this.formCustom.passwd = '';
-            //       this.formCustom.passwdCheck = '';
-            //     }
-            //   })
-            //   .catch(function (error) {
-            //     console.log(error)
-            //   })
+            let data = new URLSearchParams()
+            data.append('name', this.formCustom.user)
+            data.append('password', this.formCustom.passwd)
+            this.$axios
+              .post('/server/register/', data)
+              .then(re=>{
+                console.log(re.data);
+                if (re.data.status === 1) {
+                  this.$Message.success({
+                    content:'注册成功',
+                    duration:1.5,
+                    onClose:function() {
+                      window.location.href = "/login";
+                    }
+                  });
+                }else{
+                  this.$Message.error(re.data.msg);
+                  this.formCustom.user = '';
+                  this.formCustom.passwd = '';
+                  this.formCustom.passwdCheck = '';
+                }
+              })
+              .catch(function (error) {
+                console.log(error)
+              })
           }
         })
       },
