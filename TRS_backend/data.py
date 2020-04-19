@@ -134,7 +134,7 @@ def clean_report():
 
 # 插入FeatureResult数据
 def insert_feature_result(rid, recurrent_procedure, bug_description, problem_widget, is_match, widget_path,
-                          other_widget, pic_path):
+                          other_widget, pic_path, pic_url):
     report = get_report(rid)
     feature_result = FeatureResult()
     feature_result.rid = rid
@@ -145,6 +145,7 @@ def insert_feature_result(rid, recurrent_procedure, bug_description, problem_wid
     feature_result.is_match = is_match
     feature_result.widget_path = widget_path
     feature_result.pic_path = pic_path
+    feature_result.pic_url = pic_url
     feature_result.save()
     frid = feature_result.frid
     insert_other_widget(frid, other_widget)
@@ -163,7 +164,7 @@ def find_feature_result(sid):
         descriptions = [item for item in filter(lambda x: x != '', descriptions)]
         feature = {'frid': r.frid, 'rid': r.rid, 'sid': r.sid, 'procedure': procedures, 'problem': descriptions,
                    'widget': r.problem_widget, 'is_widget_available': r.is_match, 'widget_path': r.widget_path,
-                   'other_widget': other_widget, 'andrimg_path': r.pic_path}
+                   'other_widget': other_widget, 'andrimg_path': r.pic_path, 'pic_url': r.pic_url}
         feature_list.append(feature)
     return feature_list
 

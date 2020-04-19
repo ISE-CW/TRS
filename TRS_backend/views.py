@@ -5,6 +5,7 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 import TRS_backend.data as data
 import json
+import TRS_backend.FeatureExtraction.get_report_feature as getReportFeature
 
 
 # Create your views here.
@@ -64,6 +65,7 @@ def register(request):
 def get_report_set_simple_info(request):
     if request.method == 'POST':
         uid = request.POST.get('uid')
+        print('uid:{}'.format(uid))
         r_set = data.find_report_set(uid)
         result = []
         for reportSet in r_set:
@@ -115,6 +117,42 @@ def upload_report(request):
         report_set = data.get_report_set(sid)
         return JsonResponse({'sid': sid, 'upload_time': report_set['upload_time']})
 
+    else:
+        print(request)
+        return HttpResponseRedirect('/请求地址')
+
+
+# 检测是否已经进行过特征提取工作
+def is_feature_result_exist(request):
+    if request.method == 'POST':
+        sid = request.POST.get('sid')
+        if data.is_feature_result_exist(sid):
+            return JsonResponse({'status': 1, 'msg': '已进行过特征提取，正在加载特征分析结果...'})
+        else:
+            return JsonResponse({'status': -1, 'msg': '还未进行过特征提取,正在进行特征提取分析,该过程可能要花费较长时间,请耐心等待...'})
+    else:
+        print(request)
+        return HttpResponseRedirect('/请求地址')
+
+
+# 获得特征提取结果
+def get_report_set_feature(request):
+    if request.method == 'POST':
+        sid = request.POST.get('sid')
+        feature_list = getReportFeature.get_report_feature(sid)
+        result = []
+        for feature in feature_list:
+            rid = feature['rid']
+            report = data.get_report(rid)
+            result.append({'bug_id': report['bug_id'], 'bug_category': report['bug_category'],
+                           'severity': report['severity'], 'recurrent': report['recurrent'],
+                           'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],
+                           'description': report['description'], 'img_url': report['img_url'],
+                           'app_name': report['app_name'], 'device': report['device'],
+                           'procedures': feature['procedure'], 'problem_widget': feature['widget'],
+                           'problems': feature['problem'], 'result_img': feature['pic_url'],
+                           'is_match': feature['is_widget_available']})
+        return JsonResponse({'featureResult': result})
     else:
         print(request)
         return HttpResponseRedirect('/请求地址')

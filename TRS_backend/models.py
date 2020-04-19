@@ -59,6 +59,7 @@ class FeatureResult(models.Model):
     is_match = models.BooleanField(default=True)
     widget_path = models.CharField(max_length=200)
     pic_path = models.CharField(max_length=200)
+    pic_url = models.CharField(max_length=200, default='')
 
     class Meta:
         db_table = 'feature_result'

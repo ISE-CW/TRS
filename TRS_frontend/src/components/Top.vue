@@ -29,9 +29,6 @@
           this.username=username;
           this.login=true;
         }
-        // let window_width=window.innerWidth*0.76;
-        // let logo_width=$('#logo')[0].offsetWidth;
-        // let button_width=$('#buttons')[0].offsetWidth;
       },
       data(){
         return{
@@ -47,15 +44,15 @@
             onClose:function() {
               sessionStorage.setItem("username",'');
               sessionStorage.setItem("user_id",'');
-              window.location.href = "/login";
+              window.location.href = "/#/login";
             }
           });
         },
         toLogin(){
-          window.location.href = "/login";
+          window.location.href = "/#/login";
         },
         toRegister(){
-          window.location.href = "/register";
+          window.location.href = "/#/register";
         }
       },
       props:['frame']

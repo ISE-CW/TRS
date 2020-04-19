@@ -22,9 +22,9 @@
                 <Table class="report_table" size="small" border :columns="table_column" v-bind:data="item.reports"></Table>
                 <Row style="margin-top: 20px">
                   <Col span="12">
-                    <Button type="primary">查看特征提取结果</Button>
+                    <Button type="primary" @click="showFeatureResult(item.sid)" style="z-index: 99">查看特征提取结果</Button>
                   </Col>
-                  <Col>
+                  <Col span="12">
                     <Button type="primary">查看报告选择结果</Button>
                   </Col>
                 </Row>
@@ -46,7 +46,6 @@
 
 <script>
   import Top from "./Top";
-  import $ from 'jquery';
     export default {
       name: "Home",
       components: {Top},
@@ -102,7 +101,7 @@
               width: (window.innerWidth*0.9-32)*0.07-1,
             },
             {
-              title: '设备',
+              title: '设备名称',
               key: 'device',
               width: (window.innerWidth*0.9-32)/10-1,
             }
@@ -116,7 +115,6 @@
         }
       },
       async mounted () {
-        console.log(window.innerWidth);
         this.window_height=window.innerHeight;
         this.window_width=window.innerWidth;
         this.user_id = sessionStorage.getItem('user_id');
@@ -179,6 +177,11 @@
         },
         click(){
           this.$refs.uploadFile.click()
+        },
+        showFeatureResult(sid){
+          console.log("yes");
+          sessionStorage.setItem('sid', sid);
+          window.location.href = '/#/feature'
         }
       }
     }

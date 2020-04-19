@@ -3,6 +3,7 @@ import os
 
 
 def get_sift_feature(path):
+    print(path)
     img = cv2.imread(path)
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     sift = cv2.xfeatures2d.SIFT_create()

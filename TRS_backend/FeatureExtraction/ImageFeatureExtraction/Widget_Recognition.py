@@ -325,7 +325,7 @@ def widget_recognition(img_name_list, widget_information_list):
                                           edgecolor='blue', linewidth=2)
                         )
                         ax.text(float(bbox[0]), float(bbox[1]) - 2,
-                                '{:s}'.format(str(number) + ':' + "None"),
+                                '{:s}'.format(CLASS_NAME),
                                 bbox=dict(facecolor='blue', alpha=0.5),
                                 fontsize=8, color='white')
                         other_widget.append(widget_file_path)

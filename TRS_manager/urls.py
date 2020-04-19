@@ -26,5 +26,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
     path('simpleReportSet/', views.get_report_set_simple_info, name='simpleReportSet'),
-    path('uploadReport/', views.upload_report, name= 'uploadReport'),
+    path('uploadReport/', views.upload_report, name='uploadReport'),
+    path('isFeatureExist/', views.is_feature_result_exist, name='isFeatureExist'),
+    path('getReportSetFeature/', views.get_report_set_feature, name='getReportSetFeature')
 ]
