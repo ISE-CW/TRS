@@ -4,8 +4,9 @@ import HelloWorld from '@/components/HelloWorld'
 import Add from '@/components/Add'
 import Login from '@/components/Login'
 import Register from "@/components/Register";
-
-Vue.use(Router)
+import Home from "../components/Home";
+import FeatureShow from "../components/FeatureShow";
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -28,6 +29,16 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/feature',
+      name: 'FeatureShow',
+      component: FeatureShow
     }
   ]
 })

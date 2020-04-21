@@ -22,5 +22,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', TemplateView.as_view(template_name="index.html")),
     # re_path(r'.*', TemplateView.as_view(template_name='index.html'))
-    path('test/', views.test, name='test')
+    path('test/', views.test, name='test'),
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
+    path('simpleReportSet/', views.get_report_set_simple_info, name='simpleReportSet'),
+    path('uploadReport/', views.upload_report, name='uploadReport'),
+    path('isFeatureExist/', views.is_feature_result_exist, name='isFeatureExist'),
+    path('getReportSetFeature/', views.get_report_set_feature, name='getReportSetFeature')
 ]

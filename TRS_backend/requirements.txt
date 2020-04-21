@@ -11,3 +11,4 @@ jieba
 django
 django-cors-headers
 mysqlclient
+oss2

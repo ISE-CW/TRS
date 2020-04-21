@@ -1,3 +1,3 @@
-,description,img_url
-0,1.进入登录界面 2.点击手机号输入框 3.输入11位手机号 没有限制，可以输入超出11位的数字,http://mooctest-site.oss-cn-shanghai.aliyuncs.com//app/1565404261882/1565404261882_Screenshot_20190810_102840.jpg
-1,点击菜单 点击编辑个人简介。应用直接闪退，影响用户体验,http://mooctest-site.oss-cn-shanghai.aliyuncs.com//app/1565400506663/1565400506663_2.png
+,bug_id,bug_category,severity,recurrent,bug_create_time,bug_page,description,img_url,app_name,device
+0,5d4e2c6fc9e77c000dab11ac,功能不完整,较轻,必现,2019-08-10 10:31:11,登录,1.进入登录界面 2.点击手机号输入框 3.输入11位手机号 没有限制，可以输入超出11位的数字,http://mooctest-site.oss-cn-shanghai.aliyuncs.com//app/1565404261882/1565404261882_Screenshot_20190810_102840.jpg,趣享GIF,VIVO X9s
+1,5d4e1dc0c9e77c000dab1066,不正常退出,严重,必现,2019-08-10 09:28:32,个人界面-简介编辑-简介编辑,点击菜单 点击编辑个人简介。应用直接闪退，影响用户体验,http://mooctest-site.oss-cn-shanghai.aliyuncs.com//app/1565400506663/1565400506663_2.png,趣享GIF,Redmi Note7Pro
