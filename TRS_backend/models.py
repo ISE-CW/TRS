@@ -42,7 +42,9 @@ class Report(models.Model):
 class SelectResult(models.Model):
     srid = models.AutoField(primary_key=True)
     sid = models.IntegerField(null=False)
-    select_parm = models.CharField(max_length=50)
+    create_time = models.CharField(max_length=15)
+    reduction = models.IntegerField(null=True)
+    select_parm = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
 
     class Meta:

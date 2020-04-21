@@ -119,6 +119,25 @@ def clean_report():
 
 # --------SelectResult表相关操作---------#
 
+# 插入SelectResult数据
+def insert_select_result(sid,create_time,reduction,select_param,path):
+    result=SelectResult()
+    result.sid=sid
+    result.create_time=create_time
+    result.select_parm=select_param
+    result.path=path
+    result.reduction=reduction
+    result.save()
+    srid=result.srid
+    return srid
+
+def get_select_result(srid):
+    result = SelectResult.objects.get(srid=srid)
+    return result
+
+def get_select_results(sid):
+    result=SelectResult.objects.filter(sid=sid)
+    return result
 
 # --------FeatureResult表相关操作--------#
 

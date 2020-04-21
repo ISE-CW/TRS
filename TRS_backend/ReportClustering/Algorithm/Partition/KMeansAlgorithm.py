@@ -37,7 +37,7 @@ class KMeansAlgorithm:
                 SSE.append(result['SSE']) #不同k值的SSE数组
                 clusters.append(result['clusters']) #不同k值的聚类结果数组
                 # 如果没有把分类分到最细的程度下SSE已经为0，则为最佳状态
-                if i<len(self.features) and SSE[i-1]==0:
+                if i<=len(self.features) and SSE[i-1]==0:
                     return result['clusters']
 
             # 2.找出曲率变化最快的点
@@ -58,6 +58,8 @@ class KMeansAlgorithm:
     # 用一个k值执行一次KMeans算法
     def executeKMeans(self,clusters_num):
         # 1.根据参数训练模型
+        if clusters_num>len(self.features):
+            clusters_num=len(self.features)
         km=KMeans(n_clusters=clusters_num, init=self.init, n_init=self.n_init, max_iter=self.max_iter,
                         tol=self.tol, precompute_distances=self.precompute_distances, verbose=self.verbose,
                         random_state=self.random_state, copy_x=self.copy_x, n_jobs=self.n_jobs,

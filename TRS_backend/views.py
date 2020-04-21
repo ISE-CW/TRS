@@ -16,5 +16,6 @@ def test(request):
         result = {'status': 1, 'msg': '前端传入参数:'+parm+'后端返回参数:'+res}
         return JsonResponse(result)
     else:
+        print('你妈死了')
         print(request)
         return HttpResponseRedirect('/请求地址')

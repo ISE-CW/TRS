@@ -26,11 +26,16 @@ def doAlgorithm(tree,algorithm, parameters,good_report_features):
         # 2.根据算法要求进行聚类操作，返回聚类的列表（聚类列表是features列表的索引号数据）
         clusters = []
         if algorithm == ClusteringAlgorithm.BIRCH:
-            print('BIRCH')
+            br=BIRCHAlgorithm(parameters,features)
+            clusters=br.go()
+
         elif algorithm == ClusteringAlgorithm.DBSCAN:
-            print('DBSCAN')
+            db=DBSCANAlgorithm(parameters,features)
+            clusters=db.go()
+
         elif algorithm == ClusteringAlgorithm.GMM:
-            print('GMM')
+            gmm=GMMAlgorithm(parameters,features)
+            clusters=gmm.go()
 
         # KMeans算法
         elif algorithm == ClusteringAlgorithm.KMEANS:
