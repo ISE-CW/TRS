@@ -1,6 +1,8 @@
 from TRS_backend.ReportClustering.FunctionClass.Schedule import doClustering
 from TRS_backend.ReportClustering.Util.Enumeration import *
 from TRS_backend.ReportClustering.BusinessLogic.ClusterBL import *
+import json
+
 # work_id表示该次聚类操作的id号
 # choices包括了用户选择的所有聚类相关内容 是一个多层级的数组 每个数组项choice包含了如下内容
 # *choice['relevant_data']是一个枚举类数组，里面包括了这次聚类需要的输入数据，可能是procedure_vector或procedure_vector和widget_vector的结合
@@ -14,8 +16,8 @@ def getClusteringReport(workid,choices):
 
 # kmeans
 choice1={
-    'relevant_data':[InputData.PROCEDURE_VECTOR,InputData.WIDGET_VECTOR],
-    'algorithm_chosen':ClusteringAlgorithm.KMEANS,
+    'relevant_data':['复现步骤','问题控件'],
+    'algorithm_chosen':'KMeans',
     'parameters':{
         'n_clusters':2,
         'init':'k-means++',
@@ -24,8 +26,8 @@ choice1={
         'tol' : 0.0001,
         'precompute_distances' : 'auto',
         'verbose' : 0,
-        'random_state' : None,
-        'copy_x' : True,
+        'random_state' : 'None',
+        'copy_x' : 'True',
         'n_jobs' : 1,
         'algorithm': 'auto'
     }
@@ -83,7 +85,10 @@ choice4={
     }
 }
 
-choices=[choice4,choice3]
+choices=[choice1,choice1]
+#print(open('\TRS\TRS_backend\ReportClustering\DataFile\ChoiceFile\choice_1_20200416222410.txt','r').read())
+
 good_features,bad_features=featureTransformation(1, Reduction.AVERAGE)
 tree=algorithmExecution(good_features,choices)
-fileProduction(1,tree,choices,Reduction.AVERAGE,good_features,bad_features,'20200416222410')
+fileProduction(10,1,tree,choices,Reduction.AVERAGE,good_features,bad_features,'20200416222410')
+

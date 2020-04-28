@@ -130,15 +130,27 @@ def clean_report():
 # --------SelectResult表相关操作---------#
 
 # 插入SelectResult数据
-def insert_select_result(sid,create_time,reduction,select_param,path):
+def insert_select_result(sid,create_time,reduction,select_param,path,state):
     result=SelectResult()
     result.sid=sid
     result.create_time=create_time
     result.select_parm=select_param
     result.path=path
     result.reduction=reduction
+    result.state=state
     result.save()
     srid=result.srid
+    return srid
+
+def update_select_result(srid,sid,create_time,reduction,select_param,path,state):
+    result = get_select_result(srid)
+    result.sid = sid
+    result.create_time = create_time
+    result.select_param = select_param
+    result.path = path
+    result.reduction = reduction
+    result.state=state
+    result.save()
     return srid
 
 def get_select_result(srid):
@@ -225,7 +237,7 @@ def clean_other_widget():
 
 
 # uid = insert_user('test', '12345')
-# sid = insert_report_set(uid, 2)
+# sid = insert_report_set(1, 2)
 # insert_report(sid, '5d4e2c6fc9e77c000dab11ac', '功能不完整', '较轻', '必现', '2019-08-10 10:31:11', '登录',
 #               '1.进入登录界面 2.点击手机号输入框 3.输入11位手机号 没有限制，可以输入超出11位的数字',
 #               'http://mooctest-site.oss-cn-shanghai.aliyuncs.com//app/1565404261882/1565404261882_Screenshot_20190810_102840.jpg',

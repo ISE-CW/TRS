@@ -7,6 +7,8 @@ from TRS_backend.ReportClustering.FunctionClass.FileProduction import ProduceRep
 from TRS_backend.ReportClustering.FunctionClass.FileProduction import FormatTransformation as FTrans
 from TRS_backend.ReportClustering.Dao.ClusteringDao import *
 import numpy as np
+from TRS_backend.ReportClustering.Util.Transformation import *
+import json
 
 # 该方法通过工作ID将原始报告特征转化为聚类统一使用的向量
 # param:    workid 该操作的工作id
@@ -51,30 +53,37 @@ def algorithmExecution(features,choices):
             data.append([])
 
         for item in relevant_data:
-            if item==InputData.PROCEDURE_VECTOR:
+            if changeChineseToEnum(item)==InputData.PROCEDURE_VECTOR:
                 for i in range(0,len(features)):
                     data[i].extend(features[i].procedure_vector.tolist())
 
-            elif item==InputData.WIDGET_VECTOR:
+            elif changeChineseToEnum(item)==InputData.WIDGET_VECTOR:
                 for i in range(0, len(features)):
                     data[i].extend(features[i].widget_vector.tolist())
 
-            elif item==InputData.PROBLEM_VECTOR:
+            elif changeChineseToEnum(item)==InputData.PROBLEM_VECTOR:
                 for i in range(0, len(features)):
                     data[i].extend(features[i].problem_vector.tolist())
 
-            elif item==InputData.PROBLEM_WIDGET_VECTOR:
+            elif changeChineseToEnum(item)==InputData.PROBLEM_WIDGET_VECTOR:
                 for i in range(0, len(features)):
                     data[i].extend(features[i].problem_widget_vector.tolist())
 
-            elif item==InputData.OTHER_WIDGET_VECTOR:
+            elif changeChineseToEnum(item)==InputData.OTHER_WIDGET_VECTOR:
                 for i in range(0,len(features)):
                     data[i].extend(features[i].other_widget_vector.tolist())
 
         # 2.2 根据选择的算法和填写的参数进行聚类操作
         for i in range(0,len(data)):
             data[i]=np.array(data[i])
-        AEngine.doAlgorithm(root,choice['algorithm_chosen'],choice['parameters'],data)
+        for param in choice['parameters']:
+            if choice['parameters'][param]=='None':
+                choice['parameters'][param]=None
+            elif choice['parameters'][param]=='True':
+                choice['parameters'][param]=True
+            elif choice['parameters'][param]=='False':
+                choice['parameters'][param]=False
+        AEngine.doAlgorithm(root,changeChineseToEnum(choice['algorithm_chosen']),choice['parameters'],data)
 
     #3 返回报告树
     return root
@@ -92,30 +101,19 @@ def algorithmExecution(features,choices):
 #           reduction: 图片向量的降维方式，定义在Reduction枚举类中
 #           create_time: 用户创建聚类操作的时间
 # return:   /
-def fileProduction(workid, tree, choices, reduction, good_features, bad_features, create_time):
+def fileProduction(srid,workid, tree, choices, reduction, good_features, bad_features, create_time):
     text=PReport.produceReport(workid,choices,reduction,tree,good_features,bad_features,1,1)
-    fileName='\TRS\TRS_backend\ReportClustering\DataFile\ClusteringFile\\' + str(workid) + '_'+create_time+'_clustering_report.md';
+    fileName='\TRS\TRS_backend\ReportClustering\DataFile\ClusteringFile\\' + str(srid) +'_clustering_report.md';
     file = open(fileName, 'w', encoding='utf-8')
     file.write(text)
     file.close()
 
-    choiceFile='\TRS\TRS_backend\ReportClustering\DataFile\ChoiceFile\\' + str(workid) + '_'+create_time+'_choice.txt';
+    choiceFile='\TRS\TRS_backend\ReportClustering\DataFile\ChoiceFile\\' + str(srid) +'_choice.txt';
     file=open(choiceFile,'w',encoding='utf-8')
-    for i in range(0,len(choices)):
-        file.write('choice:'+str(i+1)+'\n')
-        file.write('relevant_data:\n')
-        for item in choices[i]['relevant_data']:
-            file.write(str(item.value)+' ')
-        file.write('\n')
-        file.write('algorithm_chosen:\n')
-        file.write(str(choices[i]['algorithm_chosen'].value)+'\n')
-        file.write('parameters:\n')
-        for item in choices[i]['parameters']:
-            file.write(item+':'+str(choices[i]['parameters'][item])+'\n')
-        file.write('\n')
+    file.write(json.dumps(choices))
     file.close()
 
-    #saveClusteringReport(workid,create_time,reduction,choiceFile,fileName)
+    saveClusteringReport(srid,workid,create_time,reduction,choiceFile,fileName,State.FINISH.value)
 
 
 # 该方法将结果报告下载到用户本地，将文件传递给前端

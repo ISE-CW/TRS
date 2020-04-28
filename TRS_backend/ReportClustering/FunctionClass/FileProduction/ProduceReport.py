@@ -1,5 +1,6 @@
 from TRS_backend.ReportClustering.Dao.ReportDao import *
 from TRS_backend.ReportClustering.Util.Enumeration import *
+from TRS_backend.ReportClustering.Util.Transformation import *
 
 # 根据用户的个性化聚类选择将聚类结果保存到文档中
 # cluster_id指该次聚类操作的编号
@@ -26,23 +27,23 @@ def produceReport(workid, choices, reduction, report_tree, good_reports, bad_rep
         # 2.再打印分类名称，包括内容有 复现步骤、出错控件、错误类型、控件截图
         choice = choices[level - 1]
         for item in choice['relevant_data']:
-            if item == InputData.PROBLEM_WIDGET_VECTOR:
+            if changeChineseToEnum(item) == InputData.PROBLEM_WIDGET_VECTOR:
                 result += '问题控件截图、'
-            elif item == InputData.OTHER_WIDGET_VECTOR:
+            elif changeChineseToEnum(item) == InputData.OTHER_WIDGET_VECTOR:
                 result += '页面其他控件截图、'
-            elif item == InputData.PROBLEM_VECTOR:
+            elif changeChineseToEnum(item) == InputData.PROBLEM_VECTOR:
                 result += '错误类型、'
-            elif item == InputData.WIDGET_VECTOR:
+            elif changeChineseToEnum(item) == InputData.WIDGET_VECTOR:
                 result += '出错控件、'
-            elif item == InputData.PROCEDURE_VECTOR:
+            elif changeChineseToEnum(item) == InputData.PROCEDURE_VECTOR:
                 result += '复现步骤、'
         result = result[0:len(result) - 1]
         result += ' —— <b>分类 ' + str(num) + '</b>\n'
-        if (InputData.PROBLEM_WIDGET_VECTOR in choice['relevant_data'])\
-                or (InputData.OTHER_WIDGET_VECTOR in choice['relevant_data']):
-            if reduction==Reduction.AVERAGE:
+        if (changeEnumToChinese(InputData.PROBLEM_WIDGET_VECTOR) in choice['relevant_data'])\
+                or (changeEnumToChinese(InputData.OTHER_WIDGET_VECTOR) in choice['relevant_data']):
+            if changeChineseToEnum(reduction)==Reduction.AVERAGE:
                 result += '<b>图片特征使用平均值法降维</b><br>'
-            elif reduction==Reduction.DIMENSIONAL:
+            elif changeChineseToEnum(reduction)==Reduction.DIMENSIONAL:
                 result += '<b>图片特征使用PCA降维</b><br>'
 
         # 3.打印他的子节点内容

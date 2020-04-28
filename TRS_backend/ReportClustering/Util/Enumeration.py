@@ -22,3 +22,7 @@ class Reduction(Enum):
     AVERAGE=1
     DIMENSIONAL=2
 
+class State(Enum):
+    FINISH=1
+    RUNNING=2
+

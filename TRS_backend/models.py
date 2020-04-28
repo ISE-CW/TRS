@@ -44,8 +44,9 @@ class SelectResult(models.Model):
     sid = models.IntegerField(null=False)
     create_time = models.CharField(max_length=15)
     reduction = models.IntegerField(null=True)
-    select_parm = models.CharField(max_length=100)
+    select_param = models.CharField(max_length=100)
     path = models.CharField(max_length=100)
+    state=models.IntegerField(null=True)
 
     class Meta:
         db_table = 'select_result'

@@ -1,5 +1,5 @@
-def markdownToWord(file):
+def markdownToWord(path):
     return
 
-def markdownToPDF(file):
+def markdownToPDF(path):
     return

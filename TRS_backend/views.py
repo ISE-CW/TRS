@@ -2,10 +2,13 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import View
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, StreamingHttpResponse
 import TRS_backend.data as data
 import json
 import TRS_backend.FeatureExtraction.get_report_feature as getReportFeature
+
+from TRS_backend.ReportClustering.BusinessLogicService import Service as ClusterService
+import threading
 
 
 # Create your views here.
@@ -154,6 +157,64 @@ def get_report_set_feature(request):
                            'problems': feature['problem'], 'result_img': feature['pic_url'],
                            'is_match': feature['is_widget_available']})
         return JsonResponse({'featureResult': result})
+    else:
+        print(request)
+        return HttpResponseRedirect('/请求地址')
+
+
+# 新建聚类分析
+def create_new_clustering(request):
+    if request.method == 'POST':
+        sid = request.POST.get('sid')
+        choices = request.POST.get('choices')
+        choices = json.loads(choices)
+        thread = threading.Thread(ClusterService.createCluster(sid, choices))
+        thread.start()
+        return JsonResponse({'data':'SUCCESS'})
+    else:
+        print(request)
+        return HttpResponseRedirect('/请求地址')
+
+
+# 预览聚类结果文档
+def preview(request):
+    if request.method == 'POST':
+        srid = request.POST.get('srid')
+        format = request.POST.get('format')
+        file = ClusterService.readFile(int(srid), format)
+        return JsonResponse({'result':file})
+    else:
+        print(request)
+        return HttpResponseRedirect('/请求地址')
+
+# 下载聚类结果文档
+def download(request):
+    if request.method == 'POST':
+        srid = request.POST.get('srid')
+        format = request.POST.get('format')
+        file = ClusterService.downloadFile(int(srid), format)
+        return StreamingHttpResponse(file)
+    else:
+        print(request)
+        return HttpResponseRedirect('/请求地址')
+
+
+# 获取聚类结果展示页面的数据集数据
+def getShowSetInfo(request):
+    if request.method == 'POST':
+        sid = request.POST.get('sid')
+        set_info = ClusterService.getSetInfo(int(sid))
+        return JsonResponse(set_info)
+    else:
+        print(request)
+        return HttpResponseRedirect('/请求地址')
+
+# 获取聚类结果展示页面的聚类报告数据
+def getShowClustersInfo(request):
+    if request.method=='POST':
+        sid=request.POST.get('sid')
+        clusters_info=ClusterService.getClustersInfo(int(sid))
+        return JsonResponse({'info':clusters_info})
     else:
         print(request)
         return HttpResponseRedirect('/请求地址')

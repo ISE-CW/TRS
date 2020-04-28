@@ -28,5 +28,10 @@ urlpatterns = [
     path('simpleReportSet/', views.get_report_set_simple_info, name='simpleReportSet'),
     path('uploadReport/', views.upload_report, name='uploadReport'),
     path('isFeatureExist/', views.is_feature_result_exist, name='isFeatureExist'),
-    path('getReportSetFeature/', views.get_report_set_feature, name='getReportSetFeature')
+    path('getReportSetFeature/', views.get_report_set_feature, name='getReportSetFeature'),
+    path('createCluster/',views.create_new_clustering, name='createCluster'),
+    path('previewFile/',views.preview,name='previewFile'),
+    path('downloadFile/', views.download, name='downloadFile'),
+    path('getShowSet/',views.getShowSetInfo,name='getShowSet'),
+    path('getShowClusters/',views.getShowClustersInfo,name='getShowClusters'),
 ]

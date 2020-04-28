@@ -22,6 +22,9 @@ class DBSCANAlgorithm:
         self.features=features
 
     def go(self):
+        if len(self.features)<=1:
+            return [[0]]
+
         if self.eps==0 and self.min_samples==0:
             self.eps,self.min_samples=findEpsandMpts(self.features)
 
