@@ -10,7 +10,7 @@
           </Col>
         </Row>
         <div ref="area">
-          <Row style="margin-top: 20px" v-for="item in show_result_list">
+          <Row style="margin-top: 20px" v-for="item in show_result_list" :key="row_key">
               <Card class="report_info" style="width: 90%;margin-left: auto;margin-right: auto">
                 <p slot="title">
                   <Row>
@@ -25,7 +25,7 @@
                     <Button type="primary" @click="showFeatureResult(item.sid)" style="z-index: 99">查看特征提取结果</Button>
                   </Col>
                   <Col span="12">
-                    <Button type="primary">查看报告选择结果</Button>
+                    <Button type="primary" @click="showClusterResult(item.sid)">查看报告选择结果</Button>
                   </Col>
                 </Row>
               </Card>
@@ -111,7 +111,8 @@
           dataCount: 0,
           pageSize: 5,
           spinShow:true,
-          uploadingShow:false
+          uploadingShow:false,
+          row_key:''
         }
       },
       async mounted () {
@@ -182,6 +183,10 @@
           console.log("yes");
           sessionStorage.setItem('sid', sid);
           window.location.href = '/#/feature'
+        },
+        showClusterResult(sid){
+          sessionStorage.setItem('sid',sid);
+          this.$router.push('/show')
         }
       }
     }

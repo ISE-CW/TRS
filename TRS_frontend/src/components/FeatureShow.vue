@@ -4,7 +4,7 @@
     <div class="layout">
       <Sider v-bind:style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto', minWidth: window_width*0.22+'px',
       maxWidth: window_width*0.22+'px'}" >
-        <Card v-for="(report,index) in show_reports" style="width: 80%; margin-left: auto; margin-right: auto;
+        <Card v-for="(report,index) in show_reports" :key="card_key" style="width: 80%; margin-left: auto; margin-right: auto;
         margin-top: 10px; margin-bottom: 10px; cursor: pointer">
           <p slot="title" @click="selectReport(report)">报告<span>{{index+1}}</span></p>
           <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">bugID:</span><span>{{report.bug_id}}</span></p>
@@ -113,7 +113,8 @@
           result_img:[],
           is_match: true,
           spinShow: true,
-          spinText: '加载中...'
+          spinText: '加载中...',
+          card_key:''
         }
       },
       mounted() {

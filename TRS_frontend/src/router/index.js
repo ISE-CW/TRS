@@ -6,6 +6,9 @@ import Login from '@/components/Login'
 import Register from "@/components/Register";
 import Home from "../components/Home";
 import FeatureShow from "../components/FeatureShow";
+import CreateCluster from "../components/CreateCluster"
+import ShowClusters from "../components/ShowClusters"
+import CheckFile from "../components/CheckFile"
 Vue.use(Router);
 
 export default new Router({
@@ -39,6 +42,21 @@ export default new Router({
       path: '/feature',
       name: 'FeatureShow',
       component: FeatureShow
+    },
+    {
+      path:'/create',
+      name:'CreateCluster',
+      component:CreateCluster
+    },
+    {
+      path:'/show',
+      name:'ShowClusters',
+      component:ShowClusters
+    },
+    {
+      path:'/check',
+      name:'CheckFile',
+      component:CheckFile
     }
   ]
 })
