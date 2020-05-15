@@ -85,117 +85,112 @@
       },
       data(){
           return{
-            set:{
-              sid:1,
-              uid:2,
-              upload_time:'2019.02.03 16:44:26',
-              report_num:2
-            },
-            clusters:[
-              {
-                srid:'1',
-                sid:'1',
-                create_time:'2018.02.01 16:44:23',
-                select_param:[
-                  {
-                    'relevant_data':['InputData.PROCEDURE_VECTOR','InputData.WIDGET_VECTOR'],
-                    'algorithm_chosen':'ClusteringAlgorithm.KMEANS',
-                    parameters:{
-                      n_clusters:2,
-                      init:'k-means++',
-                      n_init: 10,
-                      max_iter : 300,
-                      tol : 0.0001,
-                      precompute_distances : 'auto',
-                      verbose : 0,
-                      random_state : 'None',
-                      copy_x : 'True',
-                      n_jobs : 1,
-                      algorithm: 'auto'
-                    }
-                  },
-                  {
-                    'relevant_data':['InputData.PROCEDURE_VECTOR','InputData.WIDGET_VECTOR'],
-                    'algorithm_chosen':'ClusteringAlgorithm.GMM',
-                    'parameters':{
-                      'n_components' : 0,
-                      'covariance_type' : 'full',
-                      'tol' : 1e-3,
-                      'reg_covar' : 1e-6,
-                      'max_iter' : 100,
-                      'n_init' :1,
-                      'init_params' : 'random',
-                      'weights_init' : 'None',
-                      'means_init' : 'None',
-                      'precisions_init' : 'None',
-                      'random_state' : 'None',
-                      'warm_start' : 'False',
-                      'verbose' : 0,
-                      'verbose_interval' : 10
-                    }
-                  }
-                ],
-                path:'\\TRS\\TRS_backend\\ReportClustering\\DataFile\\ClusteringFile\\1_20200416174120_clustering_report.md',
-                reduction:'',
-                state:'State.FINISH'
-              },
-              {
-                srid:'2',
-                sid:'1',
-                create_time:'2018.02.01 16:44:23',
-                select_param:[
-                  {
-                    'relevant_data':['InputData.PROCEDURE_VECTOR','InputData.WIDGET_VECTOR'],
-                    'algorithm_chosen':'ClusteringAlgorithm.KMEANS',
-                    'parameters':{
-                      'n_clusters':2,
-                      'init':'k-means++',
-                      'n_init': 10,
-                      'max_iter' : 300,
-                      'tol' : 0.0001,
-                      'precompute_distances' : 'auto',
-                      'verbose' : 0,
-                      'random_state' : 'None',
-                      'copy_x' : 'True',
-                      'n_jobs' : 1,
-                      'algorithm': 'auto'
-                    }
-                  },
-                  {
-                    'n_components' : 0,
-                    'covariance_type' : 'full',
-                    'tol' : 1e-3,
-                    'reg_covar' : 1e-6,
-                    'max_iter' : 100,
-                    'n_init' :1,
-                    'init_params' : 'random',
-                    'weights_init' : 'None',
-                    'means_init' : 'None',
-                    'precisions_init' : 'None',
-                    'random_state' : 'None',
-                    'warm_start' : 'False',
-                    'verbose' : 0,
-                    'verbose_interval' : 10
-                  }
-                ],
-                path:'\\TRS\\TRS_backend\\ReportClustering\\DataFile\\ClusteringFile\\1_20200416174120_clustering_report.md',
-                reduction:'',
-                state:'State.RUNNING'
-              }
-            ],
-            download_format:'markdown'
+            // set:{
+            //   sid:1,
+            //   uid:2,
+            //   upload_time:'2019.02.03 16:44:26',
+            //   report_num:2
+            // },
+            // clusters:[
+            //   {
+            //     srid:'1',
+            //     sid:'1',
+            //     create_time:'2018.02.01 16:44:23',
+            //     select_param:[
+            //       {
+            //         'relevant_data':['InputData.PROCEDURE_VECTOR','InputData.WIDGET_VECTOR'],
+            //         'algorithm_chosen':'ClusteringAlgorithm.KMEANS',
+            //         parameters:{
+            //           n_clusters:2,
+            //           init:'k-means++',
+            //           n_init: 10,
+            //           max_iter : 300,
+            //           tol : 0.0001,
+            //           precompute_distances : 'auto',
+            //           verbose : 0,
+            //           random_state : 'None',
+            //           copy_x : 'True',
+            //           n_jobs : 1,
+            //           algorithm: 'auto'
+            //         }
+            //       },
+            //       {
+            //         'relevant_data':['InputData.PROCEDURE_VECTOR','InputData.WIDGET_VECTOR'],
+            //         'algorithm_chosen':'ClusteringAlgorithm.GMM',
+            //         'parameters':{
+            //           'n_components' : 0,
+            //           'covariance_type' : 'full',
+            //           'tol' : 1e-3,
+            //           'reg_covar' : 1e-6,
+            //           'max_iter' : 100,
+            //           'n_init' :1,
+            //           'init_params' : 'random',
+            //           'weights_init' : 'None',
+            //           'means_init' : 'None',
+            //           'precisions_init' : 'None',
+            //           'random_state' : 'None',
+            //           'warm_start' : 'False',
+            //           'verbose' : 0,
+            //           'verbose_interval' : 10
+            //         }
+            //       }
+            //     ],
+            //     path:'\\TRS\\TRS_backend\\ReportClustering\\DataFile\\ClusteringFile\\1_20200416174120_clustering_report.md',
+            //     reduction:'',
+            //     state:'State.FINISH'
+            //   },
+            //   {
+            //     srid:'2',
+            //     sid:'1',
+            //     create_time:'2018.02.01 16:44:23',
+            //     select_param:[
+            //       {
+            //         'relevant_data':['InputData.PROCEDURE_VECTOR','InputData.WIDGET_VECTOR'],
+            //         'algorithm_chosen':'ClusteringAlgorithm.KMEANS',
+            //         'parameters':{
+            //           'n_clusters':2,
+            //           'init':'k-means++',
+            //           'n_init': 10,
+            //           'max_iter' : 300,
+            //           'tol' : 0.0001,
+            //           'precompute_distances' : 'auto',
+            //           'verbose' : 0,
+            //           'random_state' : 'None',
+            //           'copy_x' : 'True',
+            //           'n_jobs' : 1,
+            //           'algorithm': 'auto'
+            //         }
+            //       },
+            //       {
+            //         'n_components' : 0,
+            //         'covariance_type' : 'full',
+            //         'tol' : 1e-3,
+            //         'reg_covar' : 1e-6,
+            //         'max_iter' : 100,
+            //         'n_init' :1,
+            //         'init_params' : 'random',
+            //         'weights_init' : 'None',
+            //         'means_init' : 'None',
+            //         'precisions_init' : 'None',
+            //         'random_state' : 'None',
+            //         'warm_start' : 'False',
+            //         'verbose' : 0,
+            //         'verbose_interval' : 10
+            //       }
+            //     ],
+            //     path:'\\TRS\\TRS_backend\\ReportClustering\\DataFile\\ClusteringFile\\1_20200416174120_clustering_report.md',
+            //     reduction:'',
+            //     state:'State.RUNNING'
+            //   }
+            // ],
+            download_format:'markdown',
+            set:{},
+            clusters:[]
           }
       },
-      async mounted() {
-        let data = new URLSearchParams();
-        data.append('sid',sessionStorage.getItem("sid"))
-        await this.$axios.post('/server/getShowSet/',data).then(re=>{
-          this.set=re.data
-        })
-        await this.$axios.post('/server/getShowClusters/',data).then(re=>{
-          var temp=JSON.parse(re.data.info)
-          this.clusters=temp
-        })
+      mounted() {
+          this.init()
+        setInterval(this.init,5000)
       },
       methods:{
           preview(srid){
@@ -290,8 +285,19 @@
         newCluster(){
           sessionStorage.setItem('sid',this.set.sid)
           this.$router.push('/create')
+        },
+        async init(){
+          let data = new URLSearchParams();
+          data.append('sid',sessionStorage.getItem("sid"))
+          await this.$axios.post('/server/getShowSet/',data).then(re=>{
+            this.set=re.data
+          })
+          await this.$axios.post('/server/getShowClusters/',data).then(re=>{
+            var temp=JSON.parse(re.data.info)
+            this.clusters=temp
+          })
         }
-      }
+      },
     }
 </script>
 <style scoped>
