@@ -42,7 +42,7 @@ def get_report_feature(report_set_id):
     return report_features
 
 
-# report_features = get_report_feature(1)
+# report_features = get_report_feature(4)
 # text_feature_list = []
 # image_feature_list = []
 # for feature in report_features:

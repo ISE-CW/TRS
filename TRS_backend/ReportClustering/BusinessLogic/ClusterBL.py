@@ -101,19 +101,14 @@ def algorithmExecution(features,choices):
 #           reduction: 图片向量的降维方式，定义在Reduction枚举类中
 #           create_time: 用户创建聚类操作的时间
 # return:   /
-def fileProduction(srid,workid, tree, choices, reduction, good_features, bad_features, create_time):
+def fileProduction(srid,workid, tree, choices, reduction, good_features, bad_features, create_time, choice_file):
     text=PReport.produceReport(workid,choices,reduction,tree,good_features,bad_features,1,1)
     fileName='\TRS\TRS_backend\ReportClustering\DataFile\ClusteringFile\\' + str(srid) +'_clustering_report.md';
     file = open(fileName, 'w', encoding='utf-8')
     file.write(text)
     file.close()
 
-    choiceFile='\TRS\TRS_backend\ReportClustering\DataFile\ChoiceFile\\' + str(srid) +'_choice.txt';
-    file=open(choiceFile,'w',encoding='utf-8')
-    file.write(json.dumps(choices))
-    file.close()
-
-    saveClusteringReport(srid,workid,create_time,reduction,choiceFile,fileName,State.FINISH.value)
+    saveClusteringReport(srid,workid,create_time,reduction,choice_file,fileName,State.FINISH.value)
 
 
 # 该方法将结果报告下载到用户本地，将文件传递给前端

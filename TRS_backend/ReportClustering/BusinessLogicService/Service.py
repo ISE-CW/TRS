@@ -8,14 +8,19 @@ import time
 from django.core import serializers
 from TRS_backend.models import *
 import json
+import threading
 
 def createCluster(sid,choices):
     current = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
+    choiceFile = '\TRS\TRS_backend\ReportClustering\DataFile\ChoiceFile\\' + current + '_' + str(sid) + '_choice.txt';
+    thread = threading.Thread(saveChoiceFile(choices,choiceFile))
+    thread.start()
+
     reduction=changeChineseToEnum(choices[0]['reduction'])
-    srid=insert_select_result(sid,current,reduction.value,'','',State.RUNNING.value)
+    srid=insert_select_result(sid,current,reduction.value,choiceFile,'',State.RUNNING.value)
     good_features, bad_features = ClusterBL.featureTransformation(sid, reduction)
     tree = ClusterBL.algorithmExecution(good_features, choices)
-    ClusterBL.fileProduction(srid,sid, tree, choices, reduction, good_features, bad_features, current)
+    ClusterBL.fileProduction(srid,sid, tree, choices, reduction, good_features, bad_features, current,choiceFile)
     return
 
 def readFile(srid,format):
@@ -49,14 +54,23 @@ def getClustersInfo(sid):
         cluster=temp[i]['fields']
         cluster['srid']=temp[i]['pk']
         cluster['state']=changeEnumToChinese(State(cluster['state']))
+        choice=''
         choice=getChoice(cluster['select_param'])
         cluster['select_param']=json.loads(choice)
         result_data.append(cluster)
     return json.dumps(result_data)
 
 def getChoice(path):
-    choice=open(path,'r')
+    choice=''
+    while choice=='':
+        try:
+            choice = open(path, 'r')
+        except IOError:
+            continue
     content=choice.read()
     return content
 
-
+def saveChoiceFile(choices,filename):
+    file = open(filename, 'w', encoding='utf-8')
+    file.write(json.dumps(choices))
+    file.close()
