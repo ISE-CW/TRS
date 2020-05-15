@@ -289,7 +289,7 @@ def widget_recognition(img_name_list, widget_information_list):
                                       edgecolor='blue', linewidth=2)
                     )
                     ax.text(float(bbox[0]), float(bbox[1]) - 2,
-                            '{:s}'.format(str(number) + ':' + "None"),
+                            '{:s}'.format(CLASS_NAME),
                             bbox=dict(facecolor='blue', alpha=0.5),
                             fontsize=8, color='white')
                     other_widget.append(widget_file_path)
@@ -336,7 +336,7 @@ def widget_recognition(img_name_list, widget_information_list):
             plt.savefig(andrimg_path)
         else:
             if img_name[len(img_name) - 3:] == 'JPG' or img_name[len(img_name) - 3:] == 'jpg':
-                andrimg_path = curpath + "\\res\\" + img_name.split('.')[0] + "_res" + img_name[len(img_name - 4):]
+                andrimg_path = curpath + "\\res\\" + img_name.split('.')[0] + "_res" + img_name[len(img_name)-4:]
             try:
                 shutil.copy(image_path, andrimg_path)
             except IOError as e:

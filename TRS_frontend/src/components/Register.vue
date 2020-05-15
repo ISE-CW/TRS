@@ -99,7 +99,7 @@
                     content:'注册成功',
                     duration:1.5,
                     onClose:function() {
-                      window.location.href = "/login";
+                      window.location.href = "/#/login";
                     }
                   });
                 }else{

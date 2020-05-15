@@ -14,5 +14,6 @@ def upload_pic(path):
     with open(path, "rb") as f:
         data = f.read()
     bucket.put_object(pic_name, data)  # data为数据，可以是图片
-    url = bucket.sign_url('GET', pic_name, 60 * 60 * 24)  # 返回值为链接，参数依次为，方法/oss上文件路径/过期时间(s)
+    url = 'http://ise-trs.oss-cn-shanghai.aliyuncs.com/'+ pic_name
+    # url = bucket.sign_url('GET', pic_name, 60 * 60 * 24)  # 返回值为链接，参数依次为，方法/oss上文件路径/过期时间(s)
     return url
