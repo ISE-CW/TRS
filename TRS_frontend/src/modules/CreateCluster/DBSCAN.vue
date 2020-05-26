@@ -44,7 +44,7 @@
       data(){
         const validateNumber = (rule, value, callback) => {
           if (value==null) {
-            return callback(new Error('该选项不能为空'));
+            return callback(new Error('The option can not be empty.'));
           }
           else{
             callback()
@@ -69,10 +69,10 @@
                 { validator: validateNumber, trigger: 'blur' }
               ],
               metric: [
-                { required: true, message: '请选择metric', trigger: 'change' }
+                { required: true, message: 'please select metric', trigger: 'change' }
               ],
               algorithm: [
-                { required: true, message: '请选择algorithm', trigger: 'change' }
+                { required: true, message: 'please select algorithm', trigger: 'change' }
               ],
               leaf_size: [
                 { validator: validateNumber, trigger: 'blur' }
@@ -85,9 +85,9 @@
               ],
             },
             n_jobs_disabled:'True',
-            n_jobs_button_text:'设置n_jobs为非None',
+            n_jobs_button_text:'set n_jobs not None',
             p_disabled:'True',
-            p_button_text:'设置p为None'
+            p_button_text:'set p None'
           }
       },
       methods:{
@@ -95,24 +95,24 @@
             if(this.n_jobs_disabled){
               this.n_jobs_disabled=!this.n_jobs_disabled
               this.parameters.n_jobs=1
-              this.n_jobs_button_text='设置n_jobs为None'
+              this.n_jobs_button_text='set n_jobs None'
             }
             else{
               this.n_jobs_disabled=!this.n_jobs_disabled
               this.parameters.n_jobs='None'
-              this.n_jobs_button_text='设置n_jobs非None'
+              this.n_jobs_button_text='set n_jobs not None'
             }
           },
         changeP(){
           if(this.p_disabled){
             this.p_disabled=!this.p_disabled
             this.parameters.p=1
-            this.p_button_text='设置p为None'
+            this.p_button_text='set p None'
           }
           else{
             this.p_disabled=!this.p_disabled
             this.parameters.p='None'
-            this.p_button_text='设置p非None'
+            this.p_button_text='set p not None'
           }
         },
       }

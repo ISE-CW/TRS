@@ -1,27 +1,27 @@
 <template>
   <Card class="card">
-    <div class="title"><span>选择聚类数据</span></div>
+    <div class="title"><span>Choose Cluster Input</span></div>
     <Form ref="inputValidate" :model="input" :rules="inputValidate" :label-width="150">
-      <FormItem label="聚类输入数据" prop="relevant_data">
+      <FormItem label="Cluster Input Data" prop="relevant_data">
         <CheckboxGroup v-model="input.relevant_data">
-          <Checkbox label="复现步骤"></Checkbox>
-          <Checkbox label="问题控件"></Checkbox>
-          <Checkbox label="故障类型"></Checkbox>
-          <Checkbox label="错误控件截图"></Checkbox>
-          <Checkbox label="其他控件截图"></Checkbox>
+          <Checkbox label="Replay Steps"></Checkbox>
+          <Checkbox label="Problem Widget"></Checkbox>
+          <Checkbox label="Bug Type"></Checkbox>
+          <Checkbox label="Problem Widget Screenshots"></Checkbox>
+          <Checkbox label="Other Widget Screenshots"></Checkbox>
         </CheckboxGroup>
       </FormItem>
-      <FormItem label="选择图片降维方式" prop="reduction">
+      <FormItem label="Select Dimensional Reduction Method" prop="reduction">
         <RadioGroup v-model="input.reduction">
-          <Radio label="均值降维"></Radio>
-          <Radio label="PCA降维"></Radio>
+          <Radio label="Average Method"></Radio>
+          <Radio label="PCA Method"></Radio>
         </RadioGroup>
       </FormItem>
     </Form>
 
-    <div class="title"><span>配置聚类算法</span></div>
+    <div class="title"><span>Configure Cluster Algorithm</span></div>
     <Form ref="algorithmValidate" :model="algorithm" :rules="algorithmValidate" :label-width="150">
-      <FormItem label="聚类算法" prop="algorithm_chosen">
+      <FormItem label="Cluster Algorithm" prop="algorithm_chosen">
         <RadioGroup v-model="algorithm.algorithm_chosen">
           <Radio label="KMeans"></Radio>
           <Radio label="BIRCH"></Radio>
@@ -55,10 +55,10 @@
           },
           inputValidate: {
             relevant_data: [
-              { required: true, type: 'array', min: 1, message: '至少选择一项相关数据', trigger: 'change' },
+              { required: true, type: 'array', min: 1, message: 'please select at least one relevant data', trigger: 'change' },
             ],
             reduction: [
-              { required: true, message: '请选择图片降维方式', trigger: 'change' }
+              { required: true, message: 'please select dimensional reduction method', trigger: 'change' }
             ],
           },
           algorithm:{
@@ -66,7 +66,7 @@
           },
           algorithmValidate:{
             algorithm_chosen: [
-              { required: true, message: '请选择聚类算法', trigger: 'change' }
+              { required: true, message: 'please select cluster algorithm', trigger: 'change' }
             ],
           },
           isValid:false

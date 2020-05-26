@@ -51,7 +51,7 @@
       data(){
         const validateNumber = (rule, value, callback) => {
           if (value==null) {
-            return callback(new Error('该选项不能为空'));
+            return callback(new Error('The option can not be empty.'));
           }
           else{
             callback()
@@ -76,7 +76,7 @@
                 { validator: validateNumber, trigger: 'blur' }
               ],
               init: [
-                { required: true, message: '请选择init', trigger: 'change' }
+                { required: true, message: 'please select init', trigger: 'change' }
               ],
               n_init: [
                 { validator: validateNumber, trigger: 'blur' }
@@ -88,7 +88,7 @@
                 { validator: validateNumber, trigger: 'blur' }
               ],
               precompute_distances: [
-                { required: true, message: '请选择precompute_distances', trigger: 'change' }
+                { required: true, message: 'please select precompute_distances', trigger: 'change' }
               ],
               verbose: [
                 { validator: validateNumber, trigger: 'blur' }
@@ -97,19 +97,19 @@
                 { validator: validateNumber, trigger: 'blur' }
               ],
               copy_x: [
-                { required: true, message: '请选择copy_x', trigger: 'change' }
+                { required: true, message: 'please select copy_x', trigger: 'change' }
               ],
               n_jobs: [
                 { validator: validateNumber, trigger: 'blur' }
               ],
               algorithm: [
-                { required: true, message: '请选择algorithm', trigger: 'change' }
+                { required: true, message: 'please select algorithm', trigger: 'change' }
               ],
             },
             random_state_disabled:'True',
-            random_state_button_text:'设置random_state非None',
+            random_state_button_text:'set random_state not None',
             n_jobs_disabled:'True',
-            n_jobs_button_text:'设置n_jobs非None'
+            n_jobs_button_text:'set n_jobs not None'
           }
       },
       methods:{
@@ -117,12 +117,12 @@
             if(this.random_state_disabled){
               this.random_state_disabled=!this.random_state_disabled
               this.parameters.random_state=0
-              this.random_state_button_text='设置random_sate为None'
+              this.random_state_button_text='set random_state None'
             }
             else {
               this.random_state_disabled=!this.random_state_disabled
               this.parameters.random_state='None'
-              this.random_state_button_text='设置random_sate非None'
+              this.random_state_button_text='set random_state not None'
             }
           },
 
@@ -130,12 +130,12 @@
             if(this.n_jobs_disabled){
               this.n_jobs_disabled=!this.n_jobs_disabled
               this.parameters.n_jobs=1
-              this.n_jobs_button_text='设置n_jobs为None'
+              this.n_jobs_button_text='set n_jobs None'
             }
             else{
               this.n_jobs_disabled=!this.n_jobs_disabled
               this.parameters.n_jobs='None'
-              this.n_jobs_button_text='设置n_jobs非None'
+              this.n_jobs_button_text='set n_jobs not None'
             }
           },
       }

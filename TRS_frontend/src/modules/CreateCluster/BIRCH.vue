@@ -31,7 +31,7 @@
       data(){
         const validateNumber = (rule, value, callback) => {
           if (value==null) {
-            return callback(new Error('该选项不能为空'));
+            return callback(new Error('The option can not be empty.'));
           }
           else{
             callback()
@@ -56,14 +56,14 @@
                 { validator: validateNumber, trigger: 'blur' }
               ],
               compute_labels: [
-                { required: true, message: '请选择compute_labels', trigger: 'change' }
+                { required: true, message: 'please select compute_labels', trigger: 'change' }
               ],
               copy: [
-                { required: true, message: '请选择copy', trigger: 'change' }
+                { required: true, message: 'please select copy', trigger: 'change' }
               ],
             },
             n_clusters_disabled:'True',
-            n_clusters_button_text:'设置n_clusters非None'
+            n_clusters_button_text:'set n_clusters not None'
           }
       },
       methods:{
@@ -71,12 +71,12 @@
             if(this.n_clusters_disabled){
               this.n_clusters_disabled=!this.n_clusters_disabled
               this.parameters.n_clusters=1
-              this.n_clusters_button_text='设置n_clusters为None'
+              this.n_clusters_button_text='set n_clusters None'
             }
             else {
               this.n_clusters_disabled=!this.n_clusters_disabled
               this.parameters.n_clusters='None'
-              this.n_clusters_button_text='设置n_clusters非None'
+              this.n_clusters_button_text='set n_clusters not None'
             }
           },
       }
