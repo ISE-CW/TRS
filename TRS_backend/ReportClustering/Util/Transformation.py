@@ -1,15 +1,15 @@
 from TRS_backend.ReportClustering.Util.Enumeration import *
 def changeEnumToChinese(enum):
     if enum==InputData.PROCEDURE_VECTOR:
-        return '复现步骤'
+        return 'Replay Steps'
     elif enum==InputData.PROBLEM_VECTOR:
-        return '故障类型'
+        return 'Bug Type'
     elif enum==InputData.WIDGET_VECTOR:
-        return '问题控件'
+        return 'Problem Widget'
     elif enum==InputData.PROBLEM_WIDGET_VECTOR:
-        return '问题控件截图'
+        return 'Problem Widget Screenshots'
     elif enum==InputData.OTHER_WIDGET_VECTOR:
-        return '其他控件截图'
+        return 'Other Widget Screenshots'
     elif enum==ClusteringAlgorithm.KMEANS:
         return 'KMeans'
     elif enum==ClusteringAlgorithm.GMM:
@@ -25,24 +25,24 @@ def changeEnumToChinese(enum):
     elif enum==FileFormat.MARKDOWN:
         return 'markdown'
     elif enum==Reduction.AVERAGE:
-        return '均值降维'
+        return 'Average Method'
     elif enum==Reduction.DIMENSIONAL:
-        return 'PCA降维'
+        return 'PCA Method'
     elif enum==State.FINISH:
         return 'State.FINISH'
     elif enum==State.RUNNING:
         return 'State.RUNNING'
 
 def changeChineseToEnum(chinese):
-    if chinese=='复现步骤':
+    if chinese=='Replay Steps':
         return InputData.PROCEDURE_VECTOR
-    elif chinese=='故障类型':
+    elif chinese=='Bug Type':
         return InputData.PROBLEM_VECTOR
-    elif chinese=='问题控件':
+    elif chinese=='Problem Widget':
         return InputData.WIDGET_VECTOR
-    elif chinese=='问题控件截图':
+    elif chinese=='Problem Widget Screenshots':
         return InputData.PROBLEM_WIDGET_VECTOR
-    elif chinese=='其他控件截图':
+    elif chinese=='Other Widget Screenshots':
         return InputData.OTHER_WIDGET_VECTOR
     elif chinese=='KMeans':
         return ClusteringAlgorithm.KMEANS
@@ -58,9 +58,9 @@ def changeChineseToEnum(chinese):
         return FileFormat.PDF
     elif chinese=='markdown':
         return FileFormat.MARKDOWN
-    elif chinese=='均值降维':
+    elif chinese=='Average Method':
         return Reduction.AVERAGE
-    elif chinese=='PCA降维':
+    elif chinese=='PCA Method':
         return Reduction.DIMENSIONAL
     elif chinese=='State.FINISH':
         return State.FINISH

@@ -89,7 +89,7 @@ def get_report_set_simple_info(request):
                     reports.append({'bug_id': '', 'bug_category': '', 'description': '', 'app_name': ''})
             else:
                 for i in range(5):
-                    report = reports[i]
+                    report = report_list[i]
                     reports.append({'bug_id': report['bug_id'], 'bug_category': report['bug_category'],
                                     'severity': report['severity'], 'recurrent': report['recurrent'],
                                     'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],

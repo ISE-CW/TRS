@@ -6,6 +6,8 @@ from TRS_backend.ReportClustering.Util.Enumeration import *
 def changeSingleReportUseAverage(data):
     # 1. 将多个procedure vector进行加和求平均
     original_procedure_vector=data.procedure_vector
+    if len(original_procedure_vector)==0:
+        return []
     new_procedure_vector=nu.zeros([len(original_procedure_vector[0]),])
     for vector in original_procedure_vector:
         new_procedure_vector=nu.add(vector,new_procedure_vector)
@@ -14,6 +16,8 @@ def changeSingleReportUseAverage(data):
 
     # 2. 将多个problem vector进行加和求平均
     original_problem_vector=data.problem_vector
+    if len(original_problem_vector)==0:
+        return []
     new_problem_vector=nu.zeros([len(original_problem_vector[0]),])
     for vector in original_problem_vector:
         new_problem_vector=nu.add(new_problem_vector,vector)
@@ -22,6 +26,8 @@ def changeSingleReportUseAverage(data):
 
     # 3. 将problem widget vector进行加和求平均
     problem_widget_vector=data.problem_widget_vector
+    if len(problem_widget_vector)==0:
+        return []
     new_problem_widget_vector = nu.zeros([128,])
     for vector in problem_widget_vector:
         new_problem_widget_vector=nu.add(new_problem_widget_vector,vector)
@@ -30,6 +36,8 @@ def changeSingleReportUseAverage(data):
 
     # 4. 将other widget vector进行加和求平均
     other_widget_vector=data.other_widget_vector
+    if len(other_widget_vector)==0:
+        return []
     new_other_widget_vector=nu.zeros([128,])
     none_num=0
     for item in other_widget_vector:
@@ -43,6 +51,7 @@ def changeSingleReportUseAverage(data):
         new_other_widget_vector=nu.add(new_other_widget_vector,temp)
     new_other_widget_vector=new_other_widget_vector*1.0/(len(other_widget_vector)-none_num)
     data.other_widget_vector=new_other_widget_vector
+
 
     return data
 
