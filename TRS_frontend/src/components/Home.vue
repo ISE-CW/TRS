@@ -4,8 +4,8 @@
     <div>
         <Row style="margin: 20px 0px">
           <Col span="8">
-            <span style="font-size: 15px;margin-left: 5px">所有报告</span>
-            <Button type="primary" style="font-size: 15px;margin-left: 30px" icon="ios-cloud-upload-outline" @click="click">上传报告</Button>
+            <span style="font-size: 15px;margin-left: 5px">All Reports</span>
+            <Button type="primary" style="font-size: 15px;margin-left: 30px" icon="ios-cloud-upload-outline" @click="click">Upload Reports</Button>
             <input type="file" ref="uploadFile" style="display:none" accept=".csv" @change="upload"/>
           </Col>
         </Row>
@@ -14,18 +14,18 @@
               <Card class="report_info" style="width: 90%;margin-left: auto;margin-right: auto">
                 <p slot="title">
                   <Row>
-                    <Col span="8"><Icon type="md-document" />报告集总览</Col>
-                    <Col span="8"><Icon type="md-clock" />上传时间：<span>{{item.upload_time}}</span></Col>
-                    <Col span="8"><Icon type="md-square-outline" />报告数量：<span>{{item.report_num}}</span></Col>
+                    <Col span="8"><Icon type="md-document" />Report Set Overview</Col>
+                    <Col span="8"><Icon type="md-clock" />Upload Time：<span>{{item.upload_time}}</span></Col>
+                    <Col span="8"><Icon type="md-square-outline" />Report Num：<span>{{item.report_num}}</span></Col>
                   </Row>
                 </p>
                 <Table class="report_table" size="small" border :columns="table_column" v-bind:data="item.reports"></Table>
                 <Row style="margin-top: 20px">
                   <Col span="12">
-                    <Button type="primary" @click="showFeatureResult(item.sid)" style="z-index: 99">查看特征提取结果</Button>
+                    <Button type="primary" @click="showFeatureResult(item.sid)" style="z-index: 99">View Report Feature</Button>
                   </Col>
                   <Col span="12">
-                    <Button type="primary" @click="showClusterResult(item.sid)">查看报告选择结果</Button>
+                    <Button type="primary" @click="showClusterResult(item.sid)">View Selection Result</Button>
                   </Col>
                 </Row>
               </Card>
@@ -35,11 +35,11 @@
     </div>
     <Spin fix v-if="spinShow" style="width: 100%;height: 100%">
       <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
-      <div>加载中</div>
+      <div>loading</div>
     </Spin>
     <Spin fix v-if="uploadingShow" style="width: 100%;height: 100%">
       <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
-      <div>正在上传</div>
+      <div>Uploading</div>
     </Spin>
   </div>
 </template>
@@ -61,47 +61,47 @@
               width: (window.innerWidth*0.9-32)*0.14-1,
             },
             {
-              title: 'bug类别',
+              title: 'bug category',
               key: 'bug_category',
-              width: (window.innerWidth*0.9-32)*0.07-1,
+              width: (window.innerWidth*0.9-32)*0.085-1,
             },
             {
-              title: '严重程度',
+              title: 'severity',
               key: 'severity',
-              width: (window.innerWidth*0.9-32)*0.07-1,
+              width: (window.innerWidth*0.9-32)*0.075-1,
             },
             {
-              title: '复现频率',
+              title: 'recurrence',
               key: 'recurrent',
-              width: (window.innerWidth*0.9-32)*0.07-1,
+              width: (window.innerWidth*0.9-32)*0.075-1,
             },
             {
-              title: '创建日期',
+              title: 'create date',
               key: 'bug_create_time',
               width: (window.innerWidth*0.9-32)*0.11-1,
             },
             {
-              title: 'bug页面',
+              title: 'bug page',
               key: 'bug_page',
-              width: (window.innerWidth*0.9-32)/10-1,
+              width: (window.innerWidth*0.9-32)*0.075-1,
             },
             {
-              title: 'bug描述',
+              title: 'bug description',
               key: 'description',
               width: (window.innerWidth*0.9-32)*0.139-1,
             },
             {
-              title: '截屏url',
+              title: 'img url',
               key: 'img_url',
-              width: (window.innerWidth*0.9-32)*0.139-1,
+              width: (window.innerWidth*0.9-32)*0.134-1,
             },
             {
-              title: 'app名称',
+              title: 'app name',
               key: 'app_name',
-              width: (window.innerWidth*0.9-32)*0.07-1,
+              width: (window.innerWidth*0.9-32)*0.075-1,
             },
             {
-              title: '设备名称',
+              title: 'device name',
               key: 'device',
               width: (window.innerWidth*0.9-32)/10-1,
             }
