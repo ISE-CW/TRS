@@ -6,17 +6,17 @@
       maxWidth: window_width*0.22+'px'}" >
         <Card v-for="(report,index) in show_reports" :key="card_key" style="width: 80%; margin-left: auto; margin-right: auto;
         margin-top: 10px; margin-bottom: 10px; cursor: pointer">
-          <p slot="title" @click="selectReport(report)">报告<span>{{index+1}}</span></p>
+          <p slot="title" @click="selectReport(report)">Report<span>{{index+1}}</span></p>
           <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">bugID:</span><span>{{report.bug_id}}</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">bug类别:</span><span>{{report.bug_category}}</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">严重程度:</span><span>{{report.severity}}</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">复现频率:</span><span>{{report.recurrent}}</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">创建时间:</span><span>{{report.bug_create_time}}</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">bug页面:</span><span>{{report.bug_page}}</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">bug描述:</span><span>点击查看详情</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">截屏url:</span><span>点击查看详情</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">app名称:</span><span>{{report.app_name}}</span></p>
-          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">设备名称:</span><span>{{report.device}}</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">bug category:</span><span>{{report.bug_category}}</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">severity:</span><span>{{report.severity}}</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">recurrence:</span><span>{{report.recurrent}}</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">create time:</span><span>{{report.bug_create_time}}</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">bug page:</span><span>{{report.bug_page}}</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">bug description:</span><span>click for details</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">screenshot:</span><span>click for details</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">app name:</span><span>{{report.app_name}}</span></p>
+          <p style="text-align: left" @click="selectReport(report)"><span style="font-weight: bold">device name:</span><span>{{report.device}}</span></p>
         </Card>
         <Row style="height: 60px"></Row>
       </Sider>
@@ -25,36 +25,36 @@
             <Row>
               <Col span="12">
                 <Card style="width: 90%" v-model="report_detail">
-                  <p slot="title">报告详情</p>
+                  <p slot="title">Report Detail</p>
                   <p style="text-align: left"><span style="font-weight: bold">bugID:</span><span>{{report_detail.bug_id}}</span></p>
-                  <p style="text-align: left"><span style="font-weight: bold">bug类别:</span><span>{{report_detail.bug_category}}</span></p>
-                  <p style="text-align: left"><span style="font-weight: bold">严重程度:</span><span>{{report_detail.severity}}</span></p>
-                  <p style="text-align: left"><span style="font-weight: bold">复现频率:</span><span>{{report_detail.recurrent}}</span></p>
-                  <p style="text-align: left"><span style="font-weight: bold">创建时间:</span><span>{{report_detail.bug_create_time}}</span></p>
-                  <p style="text-align: left"><span style="font-weight: bold">bug页面:</span><span>{{report_detail.bug_page}}</span></p>
-                  <p style="text-align: left"><span style="font-weight: bold">bug描述:</span><span>{{report_detail.description}}</span></p>
-                  <p style="text-align: left"><span style="font-weight: bold">截屏图片:</span>
+                  <p style="text-align: left"><span style="font-weight: bold">bug category:</span><span>{{report_detail.bug_category}}</span></p>
+                  <p style="text-align: left"><span style="font-weight: bold">severity:</span><span>{{report_detail.severity}}</span></p>
+                  <p style="text-align: left"><span style="font-weight: bold">recurrence:</span><span>{{report_detail.recurrent}}</span></p>
+                  <p style="text-align: left"><span style="font-weight: bold">create time:</span><span>{{report_detail.bug_create_time}}</span></p>
+                  <p style="text-align: left"><span style="font-weight: bold">bug page:</span><span>{{report_detail.bug_page}}</span></p>
+                  <p style="text-align: left"><span style="font-weight: bold">bug description:</span><span>{{report_detail.description}}</span></p>
+                  <p style="text-align: left"><span style="font-weight: bold">screenshot:</span>
                     <viewer :images="original_img" :options="options">
                       <img v-for="src in original_img" :src="src" :key="src" class="images" style="height: 250px">
                     </viewer>
                   </p>
-                  <p style="text-align: left"><span style="font-weight: bold">app名称:</span><span>{{report_detail.app_name}}</span></p>
-                  <p style="text-align: left"><span style="font-weight: bold">设备名称:</span><span>{{report_detail.device}}</span></p>
+                  <p style="text-align: left"><span style="font-weight: bold">app name:</span><span>{{report_detail.app_name}}</span></p>
+                  <p style="text-align: left"><span style="font-weight: bold">device name:</span><span>{{report_detail.device}}</span></p>
                 </Card>
               </Col>
               <Col span="12">
                 <Row>
                   <Card v-model="text_feature" style="width: 90%;min-height: 200px">
-                    <p slot="title">报告文本特征提取结果</p>
-                    <p style="text-align: left"><span style="font-weight: bold">复现步骤识别结果:</span><span>{{text_feature.procedures}}</span></p>
-                    <p style="text-align: left"><span style="font-weight: bold">问题控件识别结果:</span><span>{{text_feature.problem_widget}}</span></p>
-                    <p style="text-align: left"><span style="font-weight: bold">bug描述识别结果:</span><span>{{text_feature.problems}}</span></p>
+                    <p slot="title">Report Text Feature:</p>
+                    <p style="text-align: left"><span style="font-weight: bold">reproduction steps:</span><span>{{text_feature.procedures}}</span></p>
+                    <p style="text-align: left"><span style="font-weight: bold">problem widget:</span><span>{{text_feature.problem_widget}}</span></p>
+                    <p style="text-align: left"><span style="font-weight: bold">unexpected system behaviour:</span><span>{{text_feature.problems}}</span></p>
                   </Card>
                 </Row>
                 <Row style="margin-top: 20px">
                   <Card style="width: 90%;min-height: 350px">
-                    <p slot="title">报告图片特征提取结果</p>
-                    <p v-if="is_match" style="text-align: left"><span style="font-weight: bold">截屏图片控件识别结果(红色框标识的为问题控件，蓝色框标识的为其余控件):</span>
+                    <p slot="title">Report Image Feature:</p>
+                    <p v-if="is_match" style="text-align: left"><span style="font-weight: bold">Screenshot Recognition Result(problem widget marked with red frame and context widgets marked with blue frame):</span>
                       <viewer :images="result_img" :options="options">
                         <img v-for="src in result_img" :src="src" :key="src" class="images" style="height: 250px">
                       </viewer>
