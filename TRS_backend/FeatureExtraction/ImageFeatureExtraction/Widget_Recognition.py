@@ -238,7 +238,7 @@ def widget_recognition(img_name_list, widget_information_list):
         raise NotImplementedError
 
     n_classes = len(CLASSES)
-    # create the structure of the net having a certain shape (which depends on the number of classes) 
+    # create the structure of the net having a certain shape (which depends on the number of classes)
     net.create_architecture(sess, "TEST", n_classes,
                             tag='default', anchor_scales=[8, 16, 32])
     saver = tf.train.Saver()
@@ -271,7 +271,7 @@ def widget_recognition(img_name_list, widget_information_list):
             filename = line.strip('\n').split(":")[0]
             bbox = line.strip('\n').split(":")[1].split(" ")
             print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-            print('Demo for {}'.format(filename + ".jpg"))
+            print('{}/{}:Demo for {}/{}'.format(index, len(img_name_list), (filename + ".jpg"), len(lines)))
             demo(sess, net, img_name.split('.')[0] + '\\' + filename + ".jpg")
             number = filename
             widget_file_path = curpath + "\\data\\VOCdevkit2007\\VOC2007\\JPEGImages\\" + img_name.split('.')[
@@ -297,7 +297,7 @@ def widget_recognition(img_name_list, widget_information_list):
                     match_res = False
                     for ocr_txt in ocr_res:
                         similarity = sentence_similarity(word2vec_model, ocr_txt, widget_information)
-                        if (similarity and similarity >= 0.98) or (
+                        if (similarity and similarity >= 0.9) or (
                                 CLASS_NAME == 'EditText' and (
                                 widget_information == '搜索栏' or widget_information == '输入框')):
                             match_res = True
@@ -329,20 +329,28 @@ def widget_recognition(img_name_list, widget_information_list):
                                 bbox=dict(facecolor='blue', alpha=0.5),
                                 fontsize=8, color='white')
                         other_widget.append(widget_file_path)
-        if is_widget_available:
-            plt.axis('off')
-            plt.draw()
-            print(andrimg_path)
-            plt.savefig(andrimg_path)
-        else:
-            if img_name[len(img_name) - 3:] == 'JPG' or img_name[len(img_name) - 3:] == 'jpg':
-                andrimg_path = curpath + "\\res\\" + img_name.split('.')[0] + "_res" + img_name[len(img_name)-4:]
-            try:
-                shutil.copy(image_path, andrimg_path)
-            except IOError as e:
-                print("Unable to copy file. %s" % e)
-            except:
-                print("Unexpected error:", sys.exc_info())
+        # if is_widget_available:
+        #     plt.axis('off')
+        #     plt.draw()
+        #     print(andrimg_path)
+        #     plt.savefig(andrimg_path)
+        # else:
+        #     if img_name[len(img_name) - 3:] == 'JPG' or img_name[len(img_name) - 3:] == 'jpg':
+        #         andrimg_path = curpath + "\\res\\" + img_name.split('.')[0] + "_res" + img_name[len(img_name)-4:]
+        #     try:
+        #         shutil.copy(image_path, andrimg_path)
+        #     except IOError as e:
+        #         print("Unable to copy file. %s" % e)
+        #     except:
+        #         print("Unexpected error:", sys.exc_info())
+        plt.axis('off')
+        plt.draw()
+        print(andrimg_path)
+        plt.savefig(andrimg_path)
+
+        # experiment_img_path = "F:\\360MoveData\\Users\\lenovo\\Desktop\\experiment\\img\\" + str(index_list[index]) + "_res.png"
+        # plt.savefig(experiment_img_path)
+
         file.close()
         os.remove(filepath + img_name.split('.')[0] + '.txt')
         path = curpath + '\\data\\VOCdevkit2007\\VOC2007\\JPEGImages\\' + img_name.split('.')[0]

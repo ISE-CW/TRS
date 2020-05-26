@@ -4,10 +4,10 @@
       <div id="logo" style="width: 10%;float: left;text-align: left">
         <img src="../assets/logo.png" style="height: 80px">
       </div>
-      <span style="font-size: 2em;position: absolute;left: 10%;padding-top: 15px">移动应用众包测试报告选择系统</span>
+      <span style="font-size: 2em;position: absolute;left: 10%;padding-top: 15px">STIFA Demo</span>
       <div v-if="login" style="float: right;padding-top: 20px;width: 200px;text-align: right;margin-right: 5%">
         <Avatar icon="ios-person" size="large"/><span style="font-size: 15px;">&nbsp&nbsp{{username}}</span>
-        <p id="out_frame" style="display: inline;margin-left: 15px" @click="logout"><Icon type="md-exit" size="25" id="out"/><span style="font-size: 15px">&nbsp登出</span></p>
+        <p id="out_frame" style="display: inline;margin-left: 15px" @click="logout"><Icon type="md-exit" size="25" id="out"/><span style="font-size: 15px">&nbspLog out</span></p>
       </div>
       <div v-else style="float: right;padding-top: 20px;width: 120px;text-align: right;margin-right: 5%">
         <button class="login" @click="toLogin">登录</button>

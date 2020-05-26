@@ -27,9 +27,11 @@ def FenCi(readfile, outfile, stopwords):
         # line = re.sub(r, ' ', line)
         newline = jieba.cut(line, cut_all=False)
         outstr_list = list()
+        # for word in newline:
+        #     if word not in stopwords:
+        #         outstr_list.append(word)
         for word in newline:
-            if word not in stopwords:
-                outstr_list.append(word)
+            outstr_list.append(word)
         str_out = ' '.join(outstr_list)
         # str_out.encode('utf-8')\
         print(str_out)
@@ -51,8 +53,8 @@ if __name__ == '__main__':
     todir = "./fenci/"
     stopWordFile = "stop_words.txt"
     # 一次只能对一个文档进行分词
-    file = "problem.txt"
-    # file = "procedure.txt"
+    # file = "problem.txt"
+    file = "procedure.txt"
     infile = open(os.path.join(fromdir, file), 'r', encoding='UTF-8')
     outfile = open(os.path.join(todir, file), 'w+', encoding='UTF-8')
     # 这里加载停用词

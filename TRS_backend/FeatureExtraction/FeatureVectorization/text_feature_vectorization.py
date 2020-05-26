@@ -19,7 +19,8 @@ def sentence_vector(model, s):
             v += model[word]
         except:
             length -= 1
-    v /= length
+    if length != 0:
+        v /= length
     return v
 
 
