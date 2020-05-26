@@ -15,5 +15,8 @@ def get_baidu_ocr_res(path):
         if 'words_result' in res:
             txt = [r['words'] for r in res['words_result']]
         else:
-            raise RuntimeError('Sorry, we cannot get OCR results from Baidu-OCR.')
+            txt = []
     return txt
+#
+# for i in range(257*50):
+#     print(get_baidu_ocr_res("E:\\TRS\\TRS_backend\\FeatureExtraction\\ImageFeatureExtraction\\data\\VOCdevkit2007\\VOC2007\\JPEGImages\\1590271922\\3.jpg"))
