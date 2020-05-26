@@ -41,7 +41,7 @@ def text_feature_to_vector(result_list):
             for procedure in procedure_list:
                 procedure_vector.append(sentence_vector(model, procedure))
         if len(problem_list) == 0:
-            problem_list.append(sentence_vector(model, ''))
+            problem_vector.append(sentence_vector(model, ''))
         else:
             for problem in problem_list:
                 problem_vector.append(sentence_vector(model, problem))
