@@ -6,7 +6,7 @@ import os
 
 
 def sentence_vector(model, s):
-    size = model.layer1_size
+    size = model.trainables.layer1_size
     words = []
     try:
         words = [x for x in jieba.cut(s, cut_all=True) if x != '']
@@ -19,7 +19,8 @@ def sentence_vector(model, s):
             v += model[word]
         except:
             length -= 1
-    v /= length
+    if length != 0:
+        v /= length
     return v
 
 
@@ -34,10 +35,16 @@ def text_feature_to_vector(result_list):
         procedure_list = result['procedures_list']
         problem_widget = result['problem_widget']
         problem_list = result['problems_list']
-        for procedure in procedure_list:
-            procedure_vector.append(sentence_vector(model, procedure))
-        for problem in problem_list:
-            problem_vector.append(sentence_vector(model, problem))
+        if len(procedure_list) == 0:
+            procedure_vector.append(sentence_vector(model, ''))
+        else:
+            for procedure in procedure_list:
+                procedure_vector.append(sentence_vector(model, procedure))
+        if len(problem_list) == 0:
+            problem_list.append(sentence_vector(model, ''))
+        else:
+            for problem in problem_list:
+                problem_vector.append(sentence_vector(model, problem))
         widget_vector = sentence_vector(model, problem_widget)
         vector_total = {'procedure_vector': procedure_vector, 'widget_vector': widget_vector,
                         'problem_vector': problem_vector}

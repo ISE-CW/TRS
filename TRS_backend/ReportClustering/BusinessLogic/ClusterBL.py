@@ -24,10 +24,10 @@ def featureTransformation(workid, reduction):
 
     #3 将得到的向量根据聚类的统一要求进行格式转化
     good_data=CReport.changeReoprtFeature(good_vectors,reduction)
-    bad_data=CReport.changeReoprtFeature(bad_vectors,reduction)
+    #bad_data=CReport.changeReoprtFeature(bad_vectors,reduction)
 
     #4 返回转化后的数据
-    return good_data,bad_data
+    return good_data,bad_features
 
 # 该方法通过featureTransformation方法得到的返回值与用户的配置作为输入进行算法的执行操作
 # param:    features: ReportVector

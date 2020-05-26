@@ -90,7 +90,9 @@ def text_feature_extraction (samples):
 
                 # 词法分析获取问题控件
                 problem_widget = ''
-                last_procedure = procedures[len(procedures) - 1]
+                last_procedure = ''
+                if len(procedures) >= 1:
+                    last_procedure = procedures[len(procedures) - 1]
                 last_procedure_seged = jieba.posseg.cut(last_procedure.strip())
                 first_v = False
                 for x in last_procedure_seged:

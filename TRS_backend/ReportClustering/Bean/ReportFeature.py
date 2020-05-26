@@ -9,6 +9,7 @@ class ReportFeature:
     widget_path=''
     other_widget=''
     andrimg_path=''
+    pic_url=''
 
     def __init__(self,feature):
         self.feature_id=feature['frid']
@@ -21,4 +22,5 @@ class ReportFeature:
         self.widget_path=feature['widget_path']
         self.other_widget=feature['other_widget']
         self.andrimg_path=feature['andrimg_path']
+        self.pic_url=feature['pic_url']
         return

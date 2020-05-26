@@ -44,7 +44,7 @@
 
 <style scoped>
 .md{
-  width: 60%;
+  width: 35%;
   margin-left: 20%;
 }
 </style>

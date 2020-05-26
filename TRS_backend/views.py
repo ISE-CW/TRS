@@ -85,21 +85,21 @@ def get_report_set_simple_info(request):
                                     'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],
                                     'description': report['description'], 'img_url': report['img_url'],
                                     'app_name': report['app_name'], 'device': report['device']})
-                while len(reports) < 6:
+                while len(reports) < 5:
                     reports.append({'bug_id': '', 'bug_category': '', 'description': '', 'app_name': ''})
             else:
                 for i in range(5):
-                    report = reports[i]
+                    report = report_list[i]
                     reports.append({'bug_id': report['bug_id'], 'bug_category': report['bug_category'],
                                     'severity': report['severity'], 'recurrent': report['recurrent'],
                                     'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],
                                     'description': report['description'], 'img_url': report['img_url'],
                                     'app_name': report['app_name'], 'device': report['device']})
-                reports.append({'bug_id': '更多待查看', 'bug_category': '更多待查看',
-                                'severity': '更多待查看', 'recurrent': '更多待查看',
-                                'bug_create_time': '更多待查看', 'bug_page': '更多待查看',
-                                'description': '更多待查看', 'img_url': '更多待查看',
-                                'app_name': '更多待查看', 'device': '更多待查看'})
+                reports.append({'bug_id': 'More to see', 'bug_category': 'More to see',
+                                'severity': 'More to see', 'recurrent': 'More to see',
+                                'bug_create_time': 'More to see', 'bug_page': 'More to see',
+                                'description': 'More to see', 'img_url': 'More to see',
+                                'app_name': 'More to see', 'device': 'More to see'})
             result.append({'sid': sid, 'upload_time': upload_time, 'report_num': report_num, 'reports': reports})
         return JsonResponse({'reportSet': result})
     else:
@@ -148,14 +148,15 @@ def get_report_set_feature(request):
         for feature in feature_list:
             rid = feature['rid']
             report = data.get_report(rid)
-            result.append({'bug_id': report['bug_id'], 'bug_category': report['bug_category'],
-                           'severity': report['severity'], 'recurrent': report['recurrent'],
-                           'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],
-                           'description': report['description'], 'img_url': report['img_url'],
-                           'app_name': report['app_name'], 'device': report['device'],
-                           'procedures': feature['procedure'], 'problem_widget': feature['widget'],
-                           'problems': feature['problem'], 'result_img': feature['pic_url'],
-                           'is_match': feature['is_widget_available']})
+            if feature['is_widget_available'] == 1:
+                result.append({'bug_id': report['bug_id'], 'bug_category': report['bug_category'],
+                               'severity': report['severity'], 'recurrent': report['recurrent'],
+                               'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],
+                               'description': report['description'], 'img_url': report['img_url'],
+                               'app_name': report['app_name'], 'device': report['device'],
+                               'procedures': feature['procedure'], 'problem_widget': feature['widget'],
+                               'problems': feature['problem'], 'result_img': feature['pic_url'],
+                               'is_match': feature['is_widget_available']})
         return JsonResponse({'featureResult': result})
     else:
         print(request)

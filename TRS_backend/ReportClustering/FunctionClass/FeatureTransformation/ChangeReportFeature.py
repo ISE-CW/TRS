@@ -6,6 +6,9 @@ from TRS_backend.ReportClustering.Util.Enumeration import *
 def changeSingleReportUseAverage(data):
     # 1. 将多个procedure vector进行加和求平均
     original_procedure_vector=data.procedure_vector
+    if len(original_procedure_vector)==0:
+        print(data.set_id,data.report_id,data.feature_id,'procedure_vector')
+        return []
     new_procedure_vector=nu.zeros([len(original_procedure_vector[0]),])
     for vector in original_procedure_vector:
         new_procedure_vector=nu.add(vector,new_procedure_vector)
@@ -14,6 +17,9 @@ def changeSingleReportUseAverage(data):
 
     # 2. 将多个problem vector进行加和求平均
     original_problem_vector=data.problem_vector
+    if len(original_problem_vector)==0:
+        print(data.set_id, data.report_id, data.feature_id,'problem_vector')
+        return []
     new_problem_vector=nu.zeros([len(original_problem_vector[0]),])
     for vector in original_problem_vector:
         new_problem_vector=nu.add(new_problem_vector,vector)
@@ -22,6 +28,9 @@ def changeSingleReportUseAverage(data):
 
     # 3. 将problem widget vector进行加和求平均
     problem_widget_vector=data.problem_widget_vector
+    if len(problem_widget_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'problem_widget_vector')
+        return []
     new_problem_widget_vector = nu.zeros([128,])
     for vector in problem_widget_vector:
         new_problem_widget_vector=nu.add(new_problem_widget_vector,vector)
@@ -30,6 +39,9 @@ def changeSingleReportUseAverage(data):
 
     # 4. 将other widget vector进行加和求平均
     other_widget_vector=data.other_widget_vector
+    if len(other_widget_vector)==0:
+        print(data.set_id, data.report_id, data.feature_id,'other_widget_vector')
+        return []
     new_other_widget_vector=nu.zeros([128,])
     none_num=0
     for item in other_widget_vector:
@@ -50,21 +62,33 @@ def changeSingleReportUseAverage(data):
 def changeSingleReportUseReduction(data):
     # 1. 将多个procedure vector降维
     original_procedure_vector = data.procedure_vector
+    if len(original_procedure_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'procedure_vector')
+        return []
     new_procedure_vector = dimensionalityReduction(original_procedure_vector)
     data.procedure_vector = new_procedure_vector
 
     # 2. 将多个problem vector降维
     original_problem_vector = data.problem_vector
+    if len(original_problem_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'problem_vector')
+        return []
     new_problem_vector = dimensionalityReduction(original_problem_vector)
     data.problem_vector = new_problem_vector
 
     # 3. 将problem widget vector降维
     problem_widget_vector = data.problem_widget_vector
+    if len(problem_widget_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'problem_widget_vector')
+        return []
     new_problem_widget_vector = dimensionalityReduction(problem_widget_vector)
     data.problem_widget_vector = new_problem_widget_vector
 
     # 4. 将other widget vector降维
     other_widget_vector = data.other_widget_vector
+    if len(other_widget_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'other_widget_vector')
+        return []
     new_matrix=[]
     for item in other_widget_vector:
         if item is None:
@@ -98,10 +122,14 @@ def changeReoprtFeature(data,reduction):
     result=[]
     if reduction==Reduction.AVERAGE:
         for item in data:
-            result.append(changeSingleReportUseAverage(item))
+            temp=changeSingleReportUseAverage(item)
+            if not isinstance(temp,list):
+                result.append(temp)
     elif reduction==Reduction.DIMENSIONAL:
         for item in data:
-            result.append(changeSingleReportUseReduction(item))
+            temp=changeSingleReportUseReduction(item)
+            if not isinstance(temp,list):
+                result.append(temp)
 
     # 2. 返回转化结果
     return result
