@@ -54,7 +54,7 @@
       data(){
         const validateNumber = (rule, value, callback) => {
           if (value==null) {
-            return callback(new Error('该选项不能为空'));
+            return callback(new Error('The option can not be empty.'));
           }
           else{
             callback()
@@ -82,7 +82,7 @@
                 { validator: validateNumber, trigger: 'blur' }
               ],
               covariance_type: [
-                { required: true, message: '请选择covariance_type', trigger: 'change' }
+                { required: true, message: 'please select covariance_type', trigger: 'change' }
               ],
               tol: [
                 { validator: validateNumber, trigger: 'blur' }
@@ -97,13 +97,13 @@
                 { validator: validateNumber, trigger: 'blur' }
               ],
               init_params: [
-                { required: true, message: '请选择init_params', trigger: 'change' }
+                { required: true, message: 'please select init_params', trigger: 'change' }
               ],
               random_state: [
                 { validator: validateNumber, trigger: 'blur' }
               ],
               warm_start: [
-                { required: true, message: '请选择warm_start', trigger: 'change' }
+                { required: true, message: 'please select warm_start', trigger: 'change' }
               ],
               verbose: [
                 { validator: validateNumber, trigger: 'blur' }
@@ -113,7 +113,7 @@
               ],
             },
             random_state_disabled:'True',
-            random_state_button_text:'设置random_state非None',
+            random_state_button_text:'set random_state not None',
           }
       },
       methods:{
@@ -121,12 +121,12 @@
           if(this.random_state_disabled){
             this.random_state_disabled=!this.random_state_disabled
             this.parameters.random_state=0
-            this.random_state_button_text='设置random_sate为None'
+            this.random_state_button_text='set random_state None'
           }
           else {
             this.random_state_disabled=!this.random_state_disabled
             this.parameters.random_state='None'
-            this.random_state_button_text='设置random_sate非None'
+            this.random_state_button_text='set random_state not None'
           }
         },
       }
