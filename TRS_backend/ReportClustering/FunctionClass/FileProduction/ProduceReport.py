@@ -1,4 +1,5 @@
 from TRS_backend.ReportClustering.Dao.ReportDao import *
+from TRS_backend.ReportClustering.Dao.FeatureDao import *
 from TRS_backend.ReportClustering.Util.Enumeration import *
 from TRS_backend.ReportClustering.Util.Transformation import *
 
@@ -63,8 +64,9 @@ def produceReport(workid, choices, reduction, report_tree, good_reports, bad_rep
 
 def getDescription(workid,bug_id):
     report=getOrigianlReport(workid,bug_id)
+    feature=getReportFeature(bug_id)
     result={
         'description':report.bugDescription,
-        'image_url':report.bugImageURL
+        'image_url':feature.pic_url
     }
     return result

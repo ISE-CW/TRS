@@ -28,12 +28,8 @@ def changeSingleReportUseAverage(data):
 
     # 3. 将problem widget vector进行加和求平均
     problem_widget_vector=data.problem_widget_vector
-    try:
-        if len(problem_widget_vector)==0:
-            print(data.set_id, data.report_id, data.feature_id,'problem_widget_vector')
-            return []
-    except TypeError:
-        print(data.set_id, data.report_id, data.feature_id, 'type_error')
+    if len(problem_widget_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'problem_widget_vector')
         return []
     new_problem_widget_vector = nu.zeros([128,])
     for vector in problem_widget_vector:
@@ -60,28 +56,39 @@ def changeSingleReportUseAverage(data):
     new_other_widget_vector=new_other_widget_vector*1.0/(len(other_widget_vector)-none_num)
     data.other_widget_vector=new_other_widget_vector
 
-    print(data.set_id, data.report_id, data.feature_id,'okay')
     return data
 
 # 将某单份报告的特征向量数据转化为聚类需要的格式，其中图片的向量通过PCA降维至统一格式
 def changeSingleReportUseReduction(data):
     # 1. 将多个procedure vector降维
     original_procedure_vector = data.procedure_vector
+    if len(original_procedure_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'procedure_vector')
+        return []
     new_procedure_vector = dimensionalityReduction(original_procedure_vector)
     data.procedure_vector = new_procedure_vector
 
     # 2. 将多个problem vector降维
     original_problem_vector = data.problem_vector
+    if len(original_problem_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'problem_vector')
+        return []
     new_problem_vector = dimensionalityReduction(original_problem_vector)
     data.problem_vector = new_problem_vector
 
     # 3. 将problem widget vector降维
     problem_widget_vector = data.problem_widget_vector
+    if len(problem_widget_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'problem_widget_vector')
+        return []
     new_problem_widget_vector = dimensionalityReduction(problem_widget_vector)
     data.problem_widget_vector = new_problem_widget_vector
 
     # 4. 将other widget vector降维
     other_widget_vector = data.other_widget_vector
+    if len(other_widget_vector) == 0:
+        print(data.set_id, data.report_id, data.feature_id, 'other_widget_vector')
+        return []
     new_matrix=[]
     for item in other_widget_vector:
         if item is None:
