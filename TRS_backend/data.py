@@ -1,5 +1,6 @@
 import os, django
 import re
+import pandas as pd
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TRS_manager.settings")
 django.setup()
@@ -200,6 +201,22 @@ def find_feature_result(sid):
     return feature_list
 
 
+# 查询特定报告对应的特征提取结果
+def get_feature_result(rid):
+    feature_result = FeatureResult.objects.get(rid=rid)
+    other_widget = find_other_widget(feature_result.frid)
+    procedures = re.split(' ', feature_result.recurrent_procedure)
+    procedures = [item for item in filter(lambda x: x != '', procedures)]
+    descriptions = re.split(' ', feature_result.bug_description)
+    descriptions = [item for item in filter(lambda x: x != '', descriptions)]
+    feature = {'frid': feature_result.frid, 'rid': feature_result.rid, 'sid': feature_result.sid,
+               'procedure': procedures, 'problem': descriptions, 'widget': feature_result.problem_widget,
+               'is_widget_available': feature_result.is_match, 'widget_path': feature_result.widget_path,
+               'other_widget': other_widget, 'andrimg_path': feature_result.pic_path,
+               'pic_url': feature_result.pic_url}
+    return feature
+
+
 # 查询是否已有FeatureResult数据
 def is_feature_result_exist(sid):
     res = FeatureResult.objects.filter(sid=sid)
@@ -237,12 +254,22 @@ def clean_other_widget():
 
 
 # uid = insert_user('test', '12345')
-# sid = insert_report_set(1, 2)
-# insert_report(sid, '5d4e2c6fc9e77c000dab11ac', '功能不完整', '较轻', '必现', '2019-08-10 10:31:11', '登录',
-#               '1.进入登录界面 2.点击手机号输入框 3.输入11位手机号 没有限制，可以输入超出11位的数字',
-#               'http://mooctest-site.oss-cn-shanghai.aliyuncs.com//app/1565404261882/1565404261882_Screenshot_20190810_102840.jpg',
-#               '趣享GIF', 'VIVO X9s')
-# insert_report(sid, '5d4e1dc0c9e77c000dab1066', '不正常退出', '严重', '必现', '2019-08-10 09:28:32', '个人界面-简介编辑-简介编辑',
-#               '点击菜单 点击编辑个人简介。应用直接闪退，影响用户体验',
-#               'http://mooctest-site.oss-cn-shanghai.aliyuncs.com//app/1565400506663/1565400506663_2.png',
-#               '趣享GIF', 'Redmi Note7Pro')
+# sid = insert_report_set(1, 257)
+# reports = pd.read_csv('F:\\360MoveData\\Users\\lenovo\\Desktop\\experiment\\result_file.csv')
+# ids = reports['bug_id']
+# categories = reports['bug_category']
+# severities = reports['severity']
+# recurrents = reports['recurrent']
+# times = reports['bug_create_time']
+# bug_page = reports['bug_page']
+# descriptions = reports['description']
+# images = reports['img_url']
+# app_names = reports['app_name']
+# devices = reports['device']
+# for i in range(len(ids)):
+#     insert_report(4, ids[i], categories[i], severities[i], recurrents[i], times[i], bug_page[i],
+#                   descriptions[i], images[i], app_names[i], devices[i])
+#
+# res = find_report(4)
+# for report in res:
+#     print(report)
