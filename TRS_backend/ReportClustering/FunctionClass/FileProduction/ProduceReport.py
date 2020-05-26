@@ -16,7 +16,7 @@ def produceReport(workid, choices, reduction, report_tree, good_reports, bad_rep
     if report_tree.isLeave():
         desc = getDescription(workid, good_reports[report_tree.center].report_id)
         result += '<b>Bug ' + str(num) + ': </b>' + desc['description'] + '\n'
-        result += '![](' + desc['image_url'] + ')\n'
+        result += '<img src="' + desc['image_url'] + '" style="width:350px">\n'
         result += '<br>\n'
     else:
         # 1.先打印序列标号
@@ -28,35 +28,35 @@ def produceReport(workid, choices, reduction, report_tree, good_reports, bad_rep
         choice = choices[level - 1]
         for item in choice['relevant_data']:
             if changeChineseToEnum(item) == InputData.PROBLEM_WIDGET_VECTOR:
-                result += '问题控件截图、'
+                result += 'Problem Widget Screenshots、'
             elif changeChineseToEnum(item) == InputData.OTHER_WIDGET_VECTOR:
-                result += '页面其他控件截图、'
+                result += 'Other Widget Screenshots、'
             elif changeChineseToEnum(item) == InputData.PROBLEM_VECTOR:
-                result += '错误类型、'
+                result += 'Bug Type、'
             elif changeChineseToEnum(item) == InputData.WIDGET_VECTOR:
-                result += '出错控件、'
+                result += 'Problem Widget、'
             elif changeChineseToEnum(item) == InputData.PROCEDURE_VECTOR:
-                result += '复现步骤、'
+                result += 'Replay Steps、'
         result = result[0:len(result) - 1]
-        result += ' —— <b>分类 ' + str(num) + '</b>\n'
+        result += ' —— <b>Category ' + str(num) + '</b>\n'
         if (changeEnumToChinese(InputData.PROBLEM_WIDGET_VECTOR) in choice['relevant_data'])\
                 or (changeEnumToChinese(InputData.OTHER_WIDGET_VECTOR) in choice['relevant_data']):
             if changeChineseToEnum(reduction)==Reduction.AVERAGE:
-                result += '<b>图片特征使用平均值法降维</b><br>'
+                result += '<b>Use Average Method to Execute Dimensional Reduction</b><br>'
             elif changeChineseToEnum(reduction)==Reduction.DIMENSIONAL:
-                result += '<b>图片特征使用PCA降维</b><br>'
+                result += '<b>Use PCA Method to Execute Dimensional Reduction</b><br>'
 
         # 3.打印他的子节点内容
         for i in range(0, len(report_tree.sons)):
             result += produceReport(workid, choices, reduction, report_tree.sons[i], good_reports, bad_reports, level + 1, i + 1)
 
     if level == 1 and num == 1 and len(bad_reports) > 0:
-        result += '# 不完整的测试报告\n'
+        result += '# Incomplete Test Reports\n'
         for i in range(0, len(bad_reports)):
             report = bad_reports[i]
             desc = getDescription(workid, bad_reports[i].report_id)
             result += '<b>Bug ' + str(i) + ': </b>' + desc['description'] + '\n'
-            result += '![](' + desc['image_url'] + ')'
+            result += '<img src="' + desc['image_url'] + '" style="width:350px">\n'
             result += '<br>\n'
 
     return result

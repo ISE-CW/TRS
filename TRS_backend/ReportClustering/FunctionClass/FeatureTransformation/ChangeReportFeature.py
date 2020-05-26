@@ -7,6 +7,7 @@ def changeSingleReportUseAverage(data):
     # 1. 将多个procedure vector进行加和求平均
     original_procedure_vector=data.procedure_vector
     if len(original_procedure_vector)==0:
+        print(data.set_id,data.report_id,data.feature_id,'procedure_vector')
         return []
     new_procedure_vector=nu.zeros([len(original_procedure_vector[0]),])
     for vector in original_procedure_vector:
@@ -17,6 +18,7 @@ def changeSingleReportUseAverage(data):
     # 2. 将多个problem vector进行加和求平均
     original_problem_vector=data.problem_vector
     if len(original_problem_vector)==0:
+        print(data.set_id, data.report_id, data.feature_id,'problem_vector')
         return []
     new_problem_vector=nu.zeros([len(original_problem_vector[0]),])
     for vector in original_problem_vector:
@@ -26,7 +28,12 @@ def changeSingleReportUseAverage(data):
 
     # 3. 将problem widget vector进行加和求平均
     problem_widget_vector=data.problem_widget_vector
-    if len(problem_widget_vector)==0:
+    try:
+        if len(problem_widget_vector)==0:
+            print(data.set_id, data.report_id, data.feature_id,'problem_widget_vector')
+            return []
+    except TypeError:
+        print(data.set_id, data.report_id, data.feature_id, 'type_error')
         return []
     new_problem_widget_vector = nu.zeros([128,])
     for vector in problem_widget_vector:
@@ -37,6 +44,7 @@ def changeSingleReportUseAverage(data):
     # 4. 将other widget vector进行加和求平均
     other_widget_vector=data.other_widget_vector
     if len(other_widget_vector)==0:
+        print(data.set_id, data.report_id, data.feature_id,'other_widget_vector')
         return []
     new_other_widget_vector=nu.zeros([128,])
     none_num=0
@@ -52,7 +60,7 @@ def changeSingleReportUseAverage(data):
     new_other_widget_vector=new_other_widget_vector*1.0/(len(other_widget_vector)-none_num)
     data.other_widget_vector=new_other_widget_vector
 
-
+    print(data.set_id, data.report_id, data.feature_id,'okay')
     return data
 
 # 将某单份报告的特征向量数据转化为聚类需要的格式，其中图片的向量通过PCA降维至统一格式
@@ -107,10 +115,14 @@ def changeReoprtFeature(data,reduction):
     result=[]
     if reduction==Reduction.AVERAGE:
         for item in data:
-            result.append(changeSingleReportUseAverage(item))
+            temp=changeSingleReportUseAverage(item)
+            if not isinstance(temp,list):
+                result.append(temp)
     elif reduction==Reduction.DIMENSIONAL:
         for item in data:
-            result.append(changeSingleReportUseReduction(item))
+            temp=changeSingleReportUseReduction(item)
+            if not isinstance(temp,list):
+                result.append(temp)
 
     # 2. 返回转化结果
     return result
