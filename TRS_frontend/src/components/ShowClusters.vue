@@ -187,7 +187,7 @@
       },
       mounted() {
           this.init()
-       // setInterval(this.init,5000)
+        setInterval(this.init,5000)
       },
       methods:{
           preview(srid){
