@@ -43,12 +43,15 @@ def doAlgorithm(tree,algorithm, parameters,good_report_features):
             clusters = km.go()
 
         # 3.将聚类列表中的索引数据对应到good_report_features的索引上去，并保存到页节点中去
+        print(clusters)
         for cluster in clusters:
             # 对应
             node_values = []
             for item in cluster:
                 node_values.append(values[item])
-            # 建立叶节点
-            node = ReportTree(node_values)
-            tree.addSon(node)
+            if len(node_values)!=0:
+                # 建立叶节点
+                node = ReportTree(node_values)
+                tree.addSon(node)
+
     return tree

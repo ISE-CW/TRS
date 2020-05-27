@@ -16,10 +16,28 @@ def getClusteringReport(workid,choices):
 
 # kmeans
 choice1={
-    'relevant_data':['复现步骤','问题控件'],
+    'relevant_data':['Problem Widget Screenshots','Problem Widget','Replay Stpes'],
     'algorithm_chosen':'KMeans',
     'parameters':{
-        'n_clusters':2,
+        'n_clusters':48,
+        'init':'k-means++',
+        'n_init': 10,
+        'max_iter' : 300,
+        'tol' : 0.0001,
+        'precompute_distances' : 'auto',
+        'verbose' : 0,
+        'random_state' : 'None',
+        'copy_x' : 'True',
+        'n_jobs' : 1,
+        'algorithm': 'auto'
+    }
+}
+
+choice11={
+    'relevant_data':['Bug Type'],
+    'algorithm_chosen':'KMeans',
+    'parameters':{
+        'n_clusters':0,
         'init':'k-means++',
         'n_init': 10,
         'max_iter' : 300,
@@ -85,10 +103,10 @@ choice4={
     }
 }
 
-choices=[choice1,choice1]
+choices=[choice1]
 #print(open('\TRS\TRS_backend\ReportClustering\DataFile\ChoiceFile\choice_1_20200416222410.txt','r').read())
 
-good_features,bad_features=featureTransformation(1, Reduction.AVERAGE)
+good_features,bad_features=featureTransformation(4, Reduction.AVERAGE)
 tree=algorithmExecution(good_features,choices)
-fileProduction(10,1,tree,choices,Reduction.AVERAGE,good_features,bad_features,'20200416222410')
+fileProduction('image+text2',4,tree,choices,Reduction.AVERAGE,good_features,bad_features,'20200416222410','')
 
