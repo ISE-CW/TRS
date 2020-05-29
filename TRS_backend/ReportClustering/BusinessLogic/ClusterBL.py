@@ -17,7 +17,6 @@ import json
 def featureTransformation(workid, reduction):
     #1 先从数据库中把该次执行所需的特征数据提取出来
     good_features,bad_features=FExtraction.getFeaturesContent(workid)
-
     #2 将刚才提取出来的特征数据进行向量化
     good_vectors=FExtraction.getFeaturesVector(good_features)
     bad_vectors=FExtraction.getFeaturesVector(bad_features)
@@ -102,7 +101,7 @@ def algorithmExecution(features,choices):
 #           create_time: 用户创建聚类操作的时间
 # return:   /
 def fileProduction(srid,workid, tree, choices, reduction, good_features, bad_features, create_time, choice_file):
-    text=PReport.produceReport(workid,choices,reduction,tree,good_features,bad_features,1,1)
+    text=PReport.produceReport(workid,choices,reduction,tree,good_features,bad_features,True)
     fileName='\TRS\TRS_backend\ReportClustering\DataFile\ClusteringFile\\' + str(srid) +'_clustering_report.md';
     file = open(fileName, 'w', encoding='utf-8')
     file.write(text)
