@@ -11,7 +11,7 @@
           <Checkbox label="Other Widget Screenshots"></Checkbox>
         </CheckboxGroup>
       </FormItem>
-      <FormItem label="Select Dimensional Reduction Method" prop="reduction">
+      <FormItem label="Select Dimensional Reduction Method" prop="reduction" style="display: none">
         <RadioGroup v-model="input.reduction">
           <Radio label="Average Method"></Radio>
           <Radio label="PCA Method"></Radio>
@@ -51,7 +51,7 @@
         return {
           input: {
             relevant_data: [],
-            reduction:'',
+            reduction:'Average Method',
           },
           inputValidate: {
             relevant_data: [

@@ -68,7 +68,7 @@
             //成功
             if(invalid_config.length==0){
               let data = new URLSearchParams();
-              data.append('sid', sessionStorage.getItem("sid"));
+              data.append('sid', sessionStorage.getItem("sid"))
               data.append('choices',JSON.stringify(this.getChoices()))
               console.log(data)
               this.$axios.post('/server/createCluster/',data).then(re=>{})
