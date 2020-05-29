@@ -6,52 +6,49 @@
         <div id="set_content">
           <table>
             <tr>
-              <th rowspan="2" id="set_name">数据集 {{set.sid}}</th>
-              <th class="th1">上传日期</th>
+              <th rowspan="2" id="set_name">Data Set {{set.sid}}</th>
+              <th class="th1">Upload Date</th>
               <td>{{set.upload_time}}</td>
             </tr>
             <tr>
-              <th class="th1">报告数量</th>
+              <th class="th1">Reports Amount</th>
               <td>{{set.report_num}}</td>
             </tr>
           </table>
         </div>
-        <div class="data_back">
-          <img src="../assets/data.jpg"/>
-        </div>
       </div>
 
       <div id="new_cluster">
-        <Button type="primary" size="large" @click="newCluster">新建聚类报告</Button>
+        <Button type="primary" size="large" @click="newCluster">Create Cluster Report</Button>
       </div>
 
       <div id="clusters">
         <Collapse simple class="collapse">
           <Panel v-for="(item,index) in clusters" :key="item.srid" :name="item.srid+''" class="panel">
-            <span class="title_icon" v-if="item.state=='State.FINISH'" style="background-color: #19be6b">已完成</span>
-            <span class="title_icon" v-if="item.state=='State.RUNNING'" style="background-color: #ff9900">运行中</span>
-            <span class="title_content">聚类报告{{index+1}}&emsp;&emsp;创建时间：{{item.create_time}}</span>
+            <span class="title_icon" v-if="item.state=='State.FINISH'" style="background-color: #19be6b">Finish</span>
+            <span class="title_icon" v-if="item.state=='State.RUNNING'" style="background-color: #ff9900">Running</span>
+            <span class="title_content">Cluster Report{{index+1}}&emsp;&emsp;Create Time：{{item.create_time}}</span>
             <span class="title_button">
-              <Button type="info" size="small" @click="preview(item.srid)" :disabled="item.state=='State.RUNNING'">查看</Button>
-              <Button type="info" size="small" @click="download(item.srid)" :disabled="item.state=='State.RUNNING'">下载</Button>
+              <Button type="info" size="small" @click="preview(item.srid)" :disabled="item.state=='State.RUNNING'"> &nbspPreview&nbsp </Button>
+              <Button type="info" size="small" @click="download(item.srid)" :disabled="item.state=='State.RUNNING'">Download</Button>
             </span>
             <div slot="content" class="panel_content">
               <Card>
                 <Tabs type="card">
-                  <TabPane v-for="(choice,choice_index) in item.select_param" :key="choice_index" :label="'聚类层次' + (choice_index+1)">
-                    <div class="title"><span>聚类输入数据</span></div>
+                  <TabPane v-for="(choice,choice_index) in item.select_param" :key="choice_index" :label="'Cluster Level' + (choice_index+1)">
+                    <div class="title"><span>Cluster Input Data</span></div>
                     <table>
                       <tr v-for="input in choice.relevant_data">
                         <td>{{input}}</td>
                       </tr>
                     </table>
-                    <div class="title"><span>聚类使用算法</span></div>
+                    <div class="title"><span>Cluster Algorithm</span></div>
                     <table>
                       <tr>
                         <td>{{choice.algorithm_chosen}}</td>
                       </tr>
                     </table>
-                    <div class="title"><span>聚类算法参数</span></div>
+                    <div class="title"><span>Algorithm Parameters</span></div>
                     <table class="param">
                       <tr v-for="(value,key,param_index) in choice.parameters">
                         <th>{{key}}</th>
@@ -296,7 +293,7 @@
             var temp=JSON.parse(re.data.info)
             this.clusters=temp
           })
-        }
+        },
       },
     }
 </script>
@@ -335,15 +332,15 @@
     width: 76%;
     margin-left: 12%;
     margin-right: 12%;
-    background-color: rgba(0,0,0,0.7);
     height: 200px;
     z-index: 0;
+    background-color: #f2f2f2;
 
   }
 
   #set_content table{
     margin: 0 auto;
-    -webkit-text-fill-color: white;
+    -webkit-text-fill-color: #515a6e;
     font-weight: bold;
     font-family: 宋体;
     font-size: 20px;

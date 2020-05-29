@@ -2,19 +2,20 @@
     <div style="text-align: left">
       <Top ref="top"></Top>
 
-      <ButtonGroup style="margin-top: 20px;margin-bottom: 20px">
-        <Button type="warning" :size="'large'" style="width: 150px" @click="createLevels">
-          新建聚类层次
+      <div style="margin-top: 20px;margin-bottom: 20px;margin-left: 10%">
+        <Button type="primary" :size="'large'" style="width: 220px;margin-right: 20px" @click="createLevels">
+          Create A New Cluster Level
         </Button>
-        <Button type="success" :size="'large'" style="width: 150px" @click="finishConfiguration">
-          完成聚类配置
+        <Button type="primary" :size="'large'" style="width: 220px" @click="finishConfiguration">
+          Finish Cluster Configuration
         </Button>
-      </ButtonGroup>
+      </div>
+
 
       <Collapse simple class="collapse" :value="page">
         <Panel v-for="(item,index) in levels" :key="item" class="panel" :name="item+''">
-          <span class="title">聚类层次 {{index+1}}</span>
-          <span class="delete" @click="deleteLevel(index)">删除</span>
+          <span class="title">Cluster Level {{index+1}}</span>
+          <span class="delete" @click="deleteLevel(index)">Delete</span>
           <Level :ref="getRefName(item)" slot="content"></Level>
         </Panel>
       </Collapse>
@@ -69,6 +70,7 @@
               let data = new URLSearchParams();
               data.append('sid', sessionStorage.getItem("sid"));
               data.append('choices',JSON.stringify(this.getChoices()))
+              console.log(data)
               this.$axios.post('/server/createCluster/',data).then(re=>{})
               this.$Message.success('成功配置聚类信息')
               this.$router.push('/show')
