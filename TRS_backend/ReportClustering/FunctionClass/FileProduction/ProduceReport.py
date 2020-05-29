@@ -24,7 +24,7 @@ def produceReport(workid, choices, reduction, report_tree, good_reports, bad_rep
                 '</tr>\n' \
                 '<tr>\n' \
                 '<td><b>Center Report</b></td>\n' \
-                '<td style="width:300px">Value: '+str(report_tree.center)+'<br><br>BUG ID: '+center_desc['bug_id']+'<br><br>'+center_desc['description']+'</td>\n' \
+                '<td style="width:300px">BUG ID: '+center_desc['bug_id']+'<br><br>'+center_desc['description']+'</td>\n' \
                 '<td><img src="'+center_desc['image_url']+'" style="width:350px"></td>\n' \
                 '</tr>\n'
         for item in report_tree.values:
@@ -32,7 +32,7 @@ def produceReport(workid, choices, reduction, report_tree, good_reports, bad_rep
                 desc=getDescription(workid,good_reports[item].report_id)
                 result+='<tr>\n' \
                         '<td>Similar Report</td>\n' \
-                        '<td style="width:300px">Value: '+str(item)+'<br><br>BUG ID: '+desc['bug_id']+'<br><br>'+desc['description']+'</td>\n' \
+                        '<td style="width:300px">BUG ID: '+desc['bug_id']+'<br><br>'+desc['description']+'</td>\n' \
                         '<td><img src="'+desc['image_url']+'" style="width:350px"></td>\n' \
                         '</tr>\n'
         result+='</table>\n</html>\n\n'

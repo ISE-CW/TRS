@@ -4,6 +4,7 @@ from TRS_backend.ReportClustering.Algorithm.Partition.KMeansAlgorithm import *
 from TRS_backend.ReportClustering.Algorithm.Hierarchical.BIRCHAlgorithm import *
 from TRS_backend.ReportClustering.Algorithm.Model.GMMAlgorithm import *
 from TRS_backend.ReportClustering.Bean.ReportTree import *
+import json
 
 # 用来针对某个数据集用特定算法进行特定的聚类操作
 # data为以下数据的集合：将某份报告中的内容全部转化为一维向量，然后根据用户选择的数据拼接用一个向量来表示一份报告
@@ -43,7 +44,16 @@ def doAlgorithm(tree,algorithm, parameters,good_report_features):
             clusters = km.go()
 
         # 3.将聚类列表中的索引数据对应到good_report_features的索引上去，并保存到页节点中去
-        print(clusters)
+        # print('*********************************************************************************')
+        # print(clusters)
+        # print('*********************************************************************************')
+        # file=open('C:\\Users\\pc\\Desktop\\2\\result.txt','r')
+        # text=file.read()
+        # text=text+'\n'+json.dumps(clusters)
+        # file.close()
+        # file=open('C:\\Users\\pc\\Desktop\\2\\result.txt','w')
+        # file.write(text)
+        # file.close()
         for cluster in clusters:
             # 对应
             node_values = []

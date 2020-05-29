@@ -20,7 +20,7 @@ class BIRCHAlgorithm:
         self.features = features
 
     def go(self):
-        thresholds = [0.1, 0.2, 0.3, 0, 4, 0.5, 0.6, 0.7, 0.8, 0.9]
+        thresholds = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
         branching_factors = [100, 50, 20, 10]
         labels=[]
         if self.threshold == 0 and self.branching_factor == 0:
