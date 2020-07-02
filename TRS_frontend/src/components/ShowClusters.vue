@@ -30,7 +30,7 @@
             <span class="title_content">Cluster Report{{index+1}}&emsp;&emsp;Create Time：{{item.create_time}}</span>
             <span class="title_button">
               <Button type="info" size="small" @click="preview(item.srid)" :disabled="item.state=='State.RUNNING'"> &nbspPreview&nbsp </Button>
-              <Button type="info" size="small" @click="download(item.srid)" :disabled="item.state=='State.RUNNING'">Download</Button>
+              <Button type="info" size="small" @click="download(item.srid,index+1)" :disabled="item.state=='State.RUNNING'">Download</Button>
             </span>
             <div slot="content" class="panel_content">
               <Card>
@@ -194,77 +194,97 @@
             sessionStorage.setItem("srid",srid)
             this.$router.push('/check')
           },
-        download(srid){
-          this.$Modal.confirm({
-            title: '选择您要下载的格式',
-            okText:'确认',
-            cancelText:'取消',
-            render: (h) => {
-              return h('RadioGroup',
-                {
-                  props:
-                    {
-                      value:this.download_format
-                    },
-                  on:{
-                    'on-change':(status)=>{
-                      this.download_format=status
-                    }
-                  }
-                },
-                [
-                  h('Radio',
-                    {
-                      props:
-                        {
-                          label:'markdown'
-                        },
-                    },
-                  ),
-                  h('Radio',
-                    {
-                      props:
-                        {
-                          label:'pdf'
-                        },
-                    },
-                  ),
-                  h('Radio',
-                    {
-                      props:
-                        {
-                          label:'doc'
-                        },
-                    },
-                  )
-                ]
-                )
-            },
-            onOk: () => {
-              let data=new URLSearchParams()
-              data.append('srid',srid)
-              data.append('format',this.download_format)
-              this.$axios.post('/server/downloadFile/',data).then(re=>{
-                this.content = re.data
-                this.filename = '聚类报告_'+srid+'.md'
-                const blob = new Blob([this.content])
-                if (window.navigator.msSaveOrOpenBlob) {
-                  // 兼容IE10
-                  navigator.msSaveBlob(blob, this.filename)
-                } else {
-                  //  chrome/firefox
-                  let aTag = document.createElement('a')
-                  aTag.download = this.filename
-                  aTag.href = URL.createObjectURL(blob)
-                  aTag.click()
-                  URL.revokeObjectURL(aTag.href)
-                }
-                this.download_format='markdown'
-              })
-
-            },
-            onCancel: () => {
-              this.download_format='markdown'
+        download(srid,cluster_num){
+          // this.$Modal.confirm({
+          //   title: '选择您要下载的格式',
+          //   okText:'确认',
+          //   cancelText:'取消',
+          //   render: (h) => {
+          //     return h('RadioGroup',
+          //       {
+          //         props:
+          //           {
+          //             value:this.download_format
+          //           },
+          //         on:{
+          //           'on-change':(status)=>{
+          //             this.download_format=status
+          //           }
+          //         }
+          //       },
+          //       [
+          //         h('Radio',
+          //           {
+          //             props:
+          //               {
+          //                 label:'markdown'
+          //               },
+          //           },
+          //         ),
+          //         h('Radio',
+          //           {
+          //             props:
+          //               {
+          //                 label:'pdf'
+          //               },
+          //           },
+          //         ),
+          //         h('Radio',
+          //           {
+          //             props:
+          //               {
+          //                 label:'doc'
+          //               },
+          //           },
+          //         )
+          //       ]
+          //       )
+          //   },
+          //   onOk: () => {
+          //     let data=new URLSearchParams()
+          //     data.append('srid',srid)
+          //     data.append('format',this.download_format)
+          //     this.$axios.post('/server/downloadFile/',data).then(re=>{
+          //       this.content = re.data
+          //       this.filename = '聚类报告_'+srid+'.md'
+          //       const blob = new Blob([this.content])
+          //       if (window.navigator.msSaveOrOpenBlob) {
+          //         // 兼容IE10
+          //         navigator.msSaveBlob(blob, this.filename)
+          //       } else {
+          //         //  chrome/firefox
+          //         let aTag = document.createElement('a')
+          //         aTag.download = this.filename
+          //         aTag.href = URL.createObjectURL(blob)
+          //         aTag.click()
+          //         URL.revokeObjectURL(aTag.href)
+          //       }
+          //       this.download_format='markdown'
+          //     })
+          //
+          //   },
+          //   onCancel: () => {
+          //     this.download_format='markdown'
+          //   }
+          // })
+          let data = new URLSearchParams();
+          data.append('srid', srid)
+          data.append('format','markdown')
+          this.$axios.post('/server/downloadFile/',data).then(re=>{
+            const content = re.data;
+            const blob = new Blob([content]);
+            const fileName = 'Cluster Report'+cluster_num+'.md';
+            if ("download" in document.createElement("a")) {
+              const elink = document.createElement("a");
+              elink.download = fileName;
+              elink.style.display = "none";
+              elink.href = URL.createObjectURL(blob);
+              document.body.appendChild(elink);
+              elink.click();
+              URL.revokeObjectURL(elink.href);
+              document.body.removeChild(elink);
+            } else {
+              navigator.msSaveBlob(blob, fileName);
             }
           })
         },
