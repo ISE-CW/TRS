@@ -62,12 +62,17 @@
               <Row style="margin-top: 20px">
                 <Card style="width: 90%;min-height: 350px">
                   <p slot="title">Report Image Feature:</p>
-                  <p v-if="is_match" style="text-align: left"><span style="font-weight: bold">Screenshot Recognition Result(problem widget marked with red frame and context widgets marked with blue frame):</span>
+                  <p v-if="is_match" style="text-align: left"><span style="font-weight: bold">Screenshot Recognition Result(problem widget marked with <span style="color: red">red</span> frame and context widgets marked with <span style="color: blue">blue</span> frame):</span>
                     <viewer :images="result_img" :options="options">
                       <img v-for="src in result_img" :src="src" :key="src" class="images" style="height: 250px">
                     </viewer>
                   </p>
-                  <h1 v-else>没有识别出截屏中对应的问题控件，该份报告图文信息不匹配，视为无效报告</h1>
+                  <p v-else style="text-align: left">
+                    <span style="font-weight: bold;color: darkred">Fail to recognize problem widget in Screenshot. The report content is mismatch and will be discarded</span>
+                    <viewer :images="result_img" :options="options">
+                      <img v-for="src in result_img" :src="src" :key="src" class="images" style="height: 250px">
+                    </viewer>
+                  </p>
                 </Card>
               </Row>
             </Col>
@@ -121,7 +126,7 @@
         result_img:[],
         is_match: true,
         spinShow: true,
-        spinText: '加载中...',
+        spinText: 'loading...',
         card_key:''
       }
     },
@@ -135,7 +140,7 @@
       let data = new URLSearchParams();
       data.append('sid', this.sid);
       this.$axios.post('/server/isFeatureExist/', data).then(re=>{
-        this.spinText = re.data.msg;
+        this.spinText = "loading...";
         this.$axios.post('/server/getReportSetFeature/',data).then(re=>{
           this.show_reports = re.data.featureResult;
           this.selectReport(this.show_reports[0]);

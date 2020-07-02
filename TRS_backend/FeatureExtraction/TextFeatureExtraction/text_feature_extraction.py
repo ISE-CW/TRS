@@ -102,15 +102,6 @@ def text_feature_extraction (samples):
                     else:
                         if x.flag == 'v':
                             first_v = True
-                            if x.word == '删除':
-                                problem_widget = '删除'
-                                break
-                            if x.word == '输入':
-                                problem_widget = '输入框'
-                                break
-                            if x.word == '搜索':
-                                problem_widget = '搜索栏'
-                                break
                 dict_res = {'procedures_list':procedures,'problem_widget':problem_widget,'problems_list':problems}
                 res.append(dict_res)
 

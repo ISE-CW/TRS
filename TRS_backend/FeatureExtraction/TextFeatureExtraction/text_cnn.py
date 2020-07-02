@@ -5,7 +5,7 @@ import numpy as np
 
 class TextCNN(object):
     """
-    sequence_length: 句子的长度，我们把所有的句子都填充成了相同的长度(该数据集是59)。
+    sequence_length: 句子的长度，我们把所有的句子都填充成了相同的长度。
     num_classes: 输出层的类别数，我们这个例子是2(正向和负向)。
     vocab_size: 我们词汇表的大小。定义 embedding 层的大小的时候需要这个参数，
                 embedding层的形状是[vocabulary_size, embedding_size]。

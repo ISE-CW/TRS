@@ -148,15 +148,23 @@ def get_report_set_feature(request):
         for feature in feature_list:
             rid = feature['rid']
             report = data.get_report(rid)
-            if feature['is_widget_available'] == 1:
-                result.append({'bug_id': report['bug_id'], 'bug_category': report['bug_category'],
-                               'severity': report['severity'], 'recurrent': report['recurrent'],
-                               'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],
-                               'description': report['description'], 'img_url': report['img_url'],
-                               'app_name': report['app_name'], 'device': report['device'],
-                               'procedures': feature['procedure'], 'problem_widget': feature['widget'],
-                               'problems': feature['problem'], 'result_img': feature['pic_url'],
-                               'is_match': feature['is_widget_available']})
+            # if feature['is_widget_available'] == 1:
+            #     result.append({'bug_id': report['bug_id'], 'bug_category': report['bug_category'],
+            #                    'severity': report['severity'], 'recurrent': report['recurrent'],
+            #                    'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],
+            #                    'description': report['description'], 'img_url': report['img_url'],
+            #                    'app_name': report['app_name'], 'device': report['device'],
+            #                    'procedures': feature['procedure'], 'problem_widget': feature['widget'],
+            #                    'problems': feature['problem'], 'result_img': feature['pic_url'],
+            #                    'is_match': feature['is_widget_available']})
+            result.append({'bug_id': report['bug_id'], 'bug_category': report['bug_category'],
+                           'severity': report['severity'], 'recurrent': report['recurrent'],
+                           'bug_create_time': report['bug_create_time'], 'bug_page': report['bug_page'],
+                           'description': report['description'], 'img_url': report['img_url'],
+                           'app_name': report['app_name'], 'device': report['device'],
+                           'procedures': feature['procedure'], 'problem_widget': feature['widget'],
+                           'problems': feature['problem'], 'result_img': feature['pic_url'],
+                           'is_match': feature['is_widget_available']})
         return JsonResponse({'featureResult': result})
     else:
         print(request)

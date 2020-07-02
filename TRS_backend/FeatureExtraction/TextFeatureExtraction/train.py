@@ -19,7 +19,7 @@ tf.flags.DEFINE_integer("embedding_dim", 128, "Dimensionality of character embed
 tf.flags.DEFINE_string("filter_sizes", "3,4,5", "Comma-separated filter sizes (default: '3,4,5')")
 tf.flags.DEFINE_integer("num_filters", 128, "Number of filters per filter size (default: 128)")
 tf.flags.DEFINE_float("dropout_keep_prob", 0.5, "Dropout keep probability (default: 0.5)")
-tf.flags.DEFINE_float("l2_reg_lambda", 0.0, "L2 regularization lambda (default: 0.0)")
+tf.flags.DEFINE_float("l2_reg_lambda", 3.0, "L2 regularization lambda (default: 0.0)")
 
 # 训练的参数：每一批的训练数据数量，每一批次的训练数据大小以及训练的次数，每100步评测一下模型，每100步保存一下模型，最多保留最近的5个模型
 tf.flags.DEFINE_integer("batch_size", 64, "Batch Size (default: 64)")
